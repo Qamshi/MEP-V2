@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +14,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.left-40 {
+  left: 1rem;
+}
+
+/* image upload component */
+.mt-6 {
+  margin-top: 0.5rem;
+}
+
+/* Sign In button color */
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(222 113 225);
+}
+
+/* background */
+.sm\:py-24{
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+}
+.pt-14{
+  padding-top:1.5rem ;
+}
+
+img, video {
+  max-width: 180%;
+}
+
+
+/* PaymentCard */
+.mt-16 {
+  margin-top: 1rem;
+}
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+}
+

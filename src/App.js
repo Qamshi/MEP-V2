@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React from "react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import AdPerformance from "./AdPerformance";
+import Ads from "./Ads";
+import AdsCharts from "./AdsCharts";
 import './App.css';
+import LandingPage from "./LandingPage";
+import Login from "./Login";
+import Options from "./Options";
+import Payment from "./Payment";
+import Plan from "./Plan";
+import Posting from "./Posting";
+import TextareaProvider from "./TextareaProvider"; // Import the Context Provider
 
-function App() {
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TextareaProvider>
+    <MemoryRouter>
+      
+    <Routes>
+        <Route index  element={<Login/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/landing" element={<LandingPage/>} />
+        <Route path="/plan" element={<Plan/>} />
+        <Route path="/options" element={<Options/>} />
+        <Route path="/ads" element={<Ads/>} />
+        <Route path="/AdPerformance" element={<AdPerformance />} />
+        {/* <Route path="/AdChart" element={<AdsCharts />} /> */}
+        <Route path="/AdChart/:id" element={<AdsCharts />} />
+        <Route path="/payment" element={<Payment/>} />
+        <Route path="/post" element={<Posting/>} />
+    </Routes>
+    </MemoryRouter>
+    </TextareaProvider>
   );
 }
-
-export default App;

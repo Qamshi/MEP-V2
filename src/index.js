@@ -1,13 +1,17 @@
+import { NextUIProvider } from "@nextui-org/react";
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import { createRoot } from 'react-dom/client';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+import './styles.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <NextUIProvider>
+      <App />
+    </NextUIProvider>
   </React.StrictMode>
 );
 
@@ -15,3 +19,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

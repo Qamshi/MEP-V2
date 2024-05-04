@@ -1,0 +1,94 @@
+.ad-preview {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  width: 277px;
+  /* margin-left: 18px; */
+}
+  
+  .ad-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .ad-title {
+    font-weight: bold;
+  }
+  
+  .ad-sponsor {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .ad-content {
+    display: flex;
+    padding: 10px;
+  }
+  
+  .ad-image {
+    flex: 0 0 150px;
+    margin-right: 10px;
+  }
+  
+  .ad-image img {
+    width: 182.5%;
+    height: 166px;
+    border-radius: 5px;
+    margin-left: -7px;
+    margin-top: -10px;
+}
+  
+  .ad-details {
+    flex: 1;
+  }
+  
+  .ad-details h3 {
+    margin: 164px 1px 1px 0px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: -160px;
+}
+  
+  .ad-details p {
+    margin: 0 0 -5px 0;
+    font-size: 12px;
+    color: #666;
+    margin-left: -160px;
+  }
+  
+  .ad-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 6px;
+    border-top: 1px solid #ccc;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+  
+  .ad-actions > div:hover {
+    color: #333;
+  }
+  
+ .ad-contact {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    padding-top: 0px;
+}
+  
+  .ad-contact button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
