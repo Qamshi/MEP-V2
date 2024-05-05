@@ -2,58 +2,56 @@ import { Button, Tooltip } from "@nextui-org/react";
 import React, { useRef, useState } from 'react';
 import { FiTrash, FiUpload } from 'react-icons/fi';
 import axios from 'axios';
-import { useTextareaContext } from './TextareaProvider'; // Context import
+import { useTextareaContext } from './TextareaProvider'; 
 
 const ImageUploader = () => {
-  const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
 
-  const { setImageURL } = useTextareaContext(); // Context to store image URL
+  const { setImageURL, uploadedFileName, setUploadedFileName, resetUploadedFileName } = useTextareaContext(); // Get context
   
   const uploadImageToCloudinary = async (selectedFile) => {
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("upload_preset", "Customer_Ads"); // Cloudinary upload preset
+    formData.append("upload_preset", "Customer_Ads"); 
 
     try {
       const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/dnu5j5hmj/image/upload`, // Cloudinary cloud name
+        `https://api.cloudinary.com/v1_1/dnu5j5hmj/image/upload`, 
         formData
       );
-      console.log("Image uploaded successfully:", response.data.secure_url); // Log the uploaded URL
-      return response.data.secure_url; // Return the URL of the uploaded image
+      console.log("Image uploaded successfully:", response.data.secure_url); 
+      return response.data.secure_url; 
     } catch (error) {
-      console.error("Image upload error:", error); // Log if upload fails
+      console.error("Image upload error:", error); 
       setError("Failed to upload image. Please try again.");
-      return null; // Return null if error
+      return null; 
     }
   };
 
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
 
-    if (selectedFile && (selectedFile.type === 'image/png' || selectedFile.type === 'image/jpeg')) {
-      setFile(selectedFile);
-      setError(null);
+    if (selectedFile && (selectedFile.type === 'image/png' || 'image/jpeg')) {
+      setUploadedFileName(selectedFile.name); 
+      const uploadedURL = await uploadImageToCloudinary(selectedFile);
 
-      const uploadedURL = await uploadImageToCloudinary(selectedFile); // Upload to Cloudinary
       if (uploadedURL) {
-        console.log("Image URL:", uploadedURL); // Log the image URL
-        setImageURL(uploadedURL); // Store in context
+        console.log("Image URL:", uploadedURL); 
+        setImageURL(uploadedURL); 
       } else {
-        console.error("Image upload failed."); // Log failure if URL is null
+        setUploadedFileName("");
+        console.error("Image upload failed."); 
       }
     } else {
-      setFile(null);
+      
       setError("Please select a PNG or JPEG image file.");
     }
   };
 
   const handleRemoveImage = () => {
-    setFile(null);
-    fileInputRef.current.value = null; // Reset the file input
-    setImageURL(""); // Clear the image URL in context
+    fileInputRef.current.value = null; 
+    resetUploadedFileName(); 
   };
 
   return (
@@ -75,9 +73,9 @@ const ImageUploader = () => {
               width: 'auto',
             }}
           >
-            {file ? (
+            {uploadedFileName ? (
               <div css={{ display: 'flex', alignItems: 'center' }}>
-                <span css={{ marginRight: '8px' }}>{file.name}</span>
+                <span css={{ marginRight: '8px' }}>{uploadedFileName}</span>
                 <Button
                   onClick={handleRemoveImage}
                   auto
@@ -104,7 +102,7 @@ const ImageUploader = () => {
           id="file-input"
           type="file"
           accept="image/png, image/jpeg"
-          onChange={handleFileChange} // Handle file change and trigger upload
+          onChange={handleFileChange} 
           style={{ display: 'none' }}
         />
       </div>

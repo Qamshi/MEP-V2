@@ -2,17 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
-const cors = require("cors"); // Importing CORS middleware
+const cors = require("cors"); 
 
 const app = express();
 
-// Allow requests from any origin (use cautiously in production)
-app.use(cors()); // Alternatively, you can restrict to specific origins like app.use(cors({ origin: "http://localhost:3001" }))
 
-// Parse incoming JSON requests
+app.use(cors()); 
+
 app.use(bodyParser.json());
 
-// Your MongoDB connection and server code
 const uri = "mongodb+srv://qamshi69:5EjI05z8Fbkr79gT@cluster0.eulkllh.mongodb.net/Customers";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
