@@ -1,13 +1,55 @@
+import React, { useState } from "react";
 import { Button, Textarea } from "@nextui-org/react";
-import React from "react";
-import ImageUploader from "./ImageUploader"; // Custom component
-import { useTextareaContext } from "./TextareaProvider"; // Import the Context hook
+import ImageUploader from "./ImageUploader";
+import { useTextareaContext } from "./TextareaProvider";
+import axios from "axios";
 
 const TextArea2 = () => {
-  const { productDescription, setProductDescription } = useTextareaContext(); // Access the Context
+  const {
+    productDescription,
+    setProductDescription,
+    productName,
+  } = useTextareaContext(); // Access Context values
 
-  const handleDescriptionChange = (e) => {
-    setProductDescription(e.target.value);
+  const [loading, setLoading] = useState(false);
+
+  const handleGenerateDescription = async () => {
+    setLoading(true); // Start loading state
+    try {
+      const descriptionResponse = await axios.post(
+        "http://localhost:5000/generate-description",
+        {
+          product_name: productName, // Pass product name
+        }
+      );
+
+      const fullDescription = descriptionResponse.data.description;
+      const colonIndex = fullDescription.indexOf(":");
+
+      let updatedDescription = "";
+      if (colonIndex !== -1) {
+        updatedDescription = fullDescription.slice(colonIndex + 1).trim();
+      } else {
+        updatedDescription = fullDescription;
+      }
+
+      let currentIndex = 0;
+
+      const intervalId = setInterval(() => {
+        if (currentIndex < updatedDescription.length) {
+          setProductDescription(updatedDescription.substring(0, currentIndex + 1)); // Update Context
+          currentIndex++;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 5);
+
+      console.log("Server Response:", descriptionResponse.data);
+    } catch (error) {
+      console.error("Error generating description:", error.message);
+    } finally {
+      setLoading(false); // Reset loading state
+    }
   };
 
   return (
@@ -18,14 +60,18 @@ const TextArea2 = () => {
             variant="bordered"
             label="Product Description"
             labelPlacement="outside"
-            placeholder="Write Description of your Selling Product."
+            placeholder="Write description of your selling product."
             value={productDescription} // Context value
-            onChange={handleDescriptionChange} // Context update
+            onChange={(e) => setProductDescription(e.target.value)} // Context update
           />
         </div>
         <div className="flex items-center justify-between">
-          <Button color="primary">
-            Copilot
+          <Button
+            color="primary"
+            onClick={handleGenerateDescription} // Use the function
+            disabled={loading} // Disable button when loading
+          >
+            {loading ? "Generating..." : "Copilot"}
           </Button>
           <ImageUploader />
         </div>
@@ -35,3 +81,8 @@ const TextArea2 = () => {
 };
 
 export default TextArea2;
+
+
+
+
+

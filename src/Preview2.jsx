@@ -1,15 +1,13 @@
-// 
-// 
-
 import React from 'react';
 import './Preview.css';
-import myPhoto from './images/car.jpeg';
 import commentIcon from './images/comment.png';
 import likeIcon from './images/like.png';
 import moreIcon from './images/more.png';
 import shareIcon from './images/share.png';
+import { useTextareaContext } from './TextareaProvider'; // Import the context
 
 const AdPreview2 = () => {
+  const { imageURL, productName, productDescription } = useTextareaContext();
   const actionButtonStyles = {
     width: '20px',
     marginLeft: '50px',
@@ -38,11 +36,11 @@ const AdPreview2 = () => {
     <div className="ad-preview">
       <div className="ad-content">
         <div className="ad-image">
-          <img src={myPhoto} alt="Best Quality Mehran" />
+        <img src={imageURL} alt={productName || 'Ad Image'}  />
         </div>
         <div className="ad-details">
-          <h3>Market Ease Plus</h3>
-          <p>Advertisement...more</p>
+        <h3>{productName || 'Product Name'}</h3>
+        <p>{productDescription || 'Advertisement'}</p>
           <div className="like" style={likeButtonStyles}>
             <img src={likeIcon} alt="Like" />
           </div>
