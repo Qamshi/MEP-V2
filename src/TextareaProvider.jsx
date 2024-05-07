@@ -54,8 +54,8 @@ const TextareaProvider = ({ children }) => {
     setAdPurpose(new Set([])); 
     setSelectedGender(new Set([])); 
     setPlatform(0); 
-    setUserEmail("");
-    setUserFirstName("");
+    // setUserEmail("");
+    // setUserFirstName("");
     setImageURL("");
     setFacebookSwitch(0); 
     setInstagramSwitch(0);

@@ -103,7 +103,7 @@ export default function App() {
             </DropdownItem> */}
           </DropdownMenu>
         </Dropdown>
-        <NavbarItem isActive>
+        <NavbarItem isActive style={{ cursor: 'pointer' }}>
           <Link aria-current="page" onClick={handlePlanClick} >
             Plan
           </Link>
