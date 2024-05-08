@@ -14,6 +14,9 @@ export default function App() {
   const handleLogoutClick = () => {
     navigate("/login");
   };
+  const handleFeedbackClick = () => {
+    navigate("/feedback");
+  };
 
   const handleInsightsClick = () => {
     // if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.create) {
@@ -109,7 +112,7 @@ export default function App() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" onClick={handleFeedbackClick}>
             Feedback
           </Link>
         </NavbarItem>

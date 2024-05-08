@@ -12,7 +12,7 @@ import Plan from "./Plan";
 import Posting from "./Posting";
 import TextareaProvider from "./TextareaProvider"; // Import the Context Provider
 import Map from "./Map";
-
+import Feedback from "./Feedback";
 export default function App() {
   return (
     <TextareaProvider>
@@ -31,6 +31,7 @@ export default function App() {
         <Route path="/payment" element={<Payment/>} />
         <Route path="/post" element={<Posting/>} />
         <Route path="/map" element={<Map/>} />
+        <Route path="/feedback" element={<Feedback/>} />
     </Routes>
     </MemoryRouter>
     </TextareaProvider>
