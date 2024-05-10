@@ -1,39 +1,33 @@
-import { Slider } from "@nextui-org/react";
+import { Select, SelectItem } from "@nextui-org/react";
 import React from "react";
-import { useTextareaContext } from './TextareaProvider';
+import { useTextareaContext } from './TextareaProvider'; // Import context
+import { metrics } from "./data3";
 
-export default function PriceRange() {
-  const { priceRange, setPriceRange } = useTextareaContext(); // Use context
+export default function Provinces() {
+  const { adAudience, setAdAudience } = useTextareaContext(); // Use context
   
-  const handleSliderChange = (value) => {
-    const singleValue = value[0]; // Get the first value of the array
-    setPriceRange(singleValue.toString()); // Store as string in context
+  const handleSelectionChange = (keys) => {
+    setAdAudience(keys); // Store the selected keys in context
   };
 
-  // Convert the single value string to a number
-  const rangeValue = parseInt(priceRange);
-
   return (
-    <div className="flex flex-col gap-2 w-full h-full max-w-md items-start justify-center">
-      <Slider 
-        label="Select a budget"
-        formatOptions={{style: "currency", currency: "PKR"}}
-        step={10}
-        maxValue={5000}
-        minValue={300}
-        value={[rangeValue]} 
-        onChange={handleSliderChange} 
-        className="max-w-md"
-      />
-      <p className="text-default-500 font-medium text-small">
-        Selected budget: {priceRange} 
-      </p>
+    <div className="flex w-full max-w-xs flex-col gap-2">
+      <Select
+        label="Target Audience"
+        variant="bordered"
+        placeholder="Select the Desired Loction"
+        selectedKeys={adAudience} // Use the context value
+        className="max-w-xs"
+        onSelectionChange={handleSelectionChange} // Use the new handler
+        selectionMode="multiple"
+      >
+        {metrics.map((metric) => (
+          <SelectItem key={metric.value} value={metric.value}>
+            {metric.label}
+          </SelectItem>
+        ))}
+      </Select>
     </div>
   );
 }
-
-
-
-
-
 

@@ -1,9 +1,10 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import { Activity, ChevronDown, Flash, Lock, Scale, Server, TagUser } from "./Icons.jsx";
 
-import { useNavigate } from 'react-router-dom';
+// import { FeedbackFish } from '@feedback-fish/react';
 
 export default function App() {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ export default function App() {
   };
 
   return (
+    
     <Navbar>
       <NavbarBrand>
         <AcmeLogo />
@@ -111,11 +113,13 @@ export default function App() {
             Plan
           </Link>
         </NavbarItem>
+        {/* <FeedbackFish projectId="960b2eb9ed945b"> */}
         <NavbarItem>
-          <Link color="foreground" onClick={handleFeedbackClick}>
+          <Link color="foreground" onClick={handleFeedbackClick} style={{ cursor: 'pointer' }}>
             Feedback
           </Link>
         </NavbarItem>
+        {/* </FeedbackFish> */}
       </NavbarContent>
       <NavbarContent justify="end">
         {/* <NavbarItem className="hidden lg:flex"> 

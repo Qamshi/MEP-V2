@@ -105,12 +105,11 @@ const Plan = () => {
         return () => clearTimeout(timer); // Cleanup on unmount
       }
     }
-  }, [productName, websiteURL, productDescription, imageURL, attemptedNext]);
+  }, [productName, productDescription, imageURL, attemptedNext]);
 
   const isAnyFieldEmpty = () => {
     return (
       !productName ||
-      !websiteURL ||
       (showTextArea2 && (!productDescription || !imageURL))
     );
   };

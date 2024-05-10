@@ -26,7 +26,9 @@
     }
   ],
   "content_security_policy": {
-    "script-src": ["'self'", "react.development.js", "react-dom.development.js"]
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "sandbox": "sandbox allow-scripts allow-modals",
+    "web_accessible_resources": ["insights.html"],
+    "script-src": ["'self'", "https://feedback.fish"]
   }
-
 }

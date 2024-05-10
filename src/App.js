@@ -4,22 +4,22 @@ import AdPerformance from "./AdPerformance";
 import Ads from "./Ads";
 import AdsCharts from "./AdsCharts";
 import './App.css';
+import Feedback from "./Feedback";
 import LandingPage from "./LandingPage";
 import Login from "./Login";
+import Map from "./Map";
 import Options from "./Options";
 import Payment from "./Payment";
 import Plan from "./Plan";
 import Posting from "./Posting";
 import TextareaProvider from "./TextareaProvider"; // Import the Context Provider
-import Map from "./Map";
-import Feedback from "./Feedback";
 export default function App() {
   return (
     <TextareaProvider>
     <MemoryRouter>
       
     <Routes>
-        <Route index  element={<Login/>} />
+        <Route index  element={<LandingPage/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/landing" element={<LandingPage/>} />
         <Route path="/plan" element={<Plan/>} />
@@ -32,6 +32,7 @@ export default function App() {
         <Route path="/post" element={<Posting/>} />
         <Route path="/map" element={<Map/>} />
         <Route path="/feedback" element={<Feedback/>} />
+        
     </Routes>
     </MemoryRouter>
     </TextareaProvider>
