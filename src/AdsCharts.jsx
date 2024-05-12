@@ -8,12 +8,6 @@ const Cards = () => {
   const { id } = useParams();
   console.log("ID:", id);
 
-  const chartData = [
-    { data: [35000, 44000, 24000, 34000] },
-    { data: [51000, 6000, 49000, 30000] },
-    { data: [15000, 25000, 30000, 50000] },
-    { data: [60000, 50000, 15000, 25000] },
-  ];
 
   return (
     <div>
@@ -22,7 +16,7 @@ const Cards = () => {
         <div className="relative isolate px-6 pt-14 lg:px-8 z-index-1">
           <h1 className="text-2xl font-bold mb-4">Insights for Item {id}</h1>
           <div className="flex flex-row space-x-4">
-            <div className="bg-white rounded-lg shadow-md p-4 w-1/4">
+            <div className="bg-white rounded-lg shadow-md p-4 w-1/4" style={{marginLeft: '-16px'}}>
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <p className="text-gray-500 text-sm font-medium">Reach</p>

@@ -3,7 +3,7 @@ import React from "react";
 import { useTextareaContext } from './TextareaProvider'; // Import context
 import { metrics } from "./data3";
 
-export default function Provinces() {
+export default function Target_audience() {
   const { adAudience, setAdAudience } = useTextareaContext(); // Use context
   
   const handleSelectionChange = (keys) => {

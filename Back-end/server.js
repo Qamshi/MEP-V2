@@ -3,6 +3,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const cors = require("cors"); 
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const app = express();
 
@@ -42,13 +48,14 @@ const userDataSchema = new mongoose.Schema(
     phoneNumber: String,
     productDescription: String,
     ageBracket: String,
-    priceRange: String,
     adPurpose: [String], // Since this could be an array
     selectedGender: [String], // Since this could also be an array
     platform: Number,
     userEmail: String,
     userFirstName: String,
+    selectedDate: Date,
     imageURL: String, // URL of the uploaded image
+    adAudience: [String],
   },
   { collection: "userdata" } // Collection name for MongoDB
 );
@@ -56,22 +63,38 @@ const userDataSchema = new mongoose.Schema(
 // Create a model from the schema
 const UserData = mongoose.model("UserData", userDataSchema);
 
+const subscriptionSchema = new mongoose.Schema(
+  {
+    plan: String,
+    userEmail: String,
+    status: String,
+    start_time: Date,
+    end_time: Date,
+    ads_count: Number,
+  },
+  { collection: "Subscription" }
+);
 
-
+const Subscription = mongoose.model("Subscription", subscriptionSchema);
 
 app.post("/userdata", async (req, res) => {
   const data = req.body;
 
   try {
-    const newUserData = new UserData(data); // Create a new document from the data
-    await newUserData.save(); // Save to MongoDB
-    res.status(201).json({ message: "Data saved successfully." }); // Success response
+    const selectedDateTime = dayjs(data.selectedDate, "MM/DD/YYYY hh:mm A", "Asia/Karachi");
+
+    const utcDateTime = selectedDateTime.utc().toDate();
+
+    const newData = { ...data, selectedDate: utcDateTime };
+
+    const newUserData = new UserData(newData);
+    await newUserData.save();
+    res.status(201).json({ message: "Data saved successfully." });
   } catch (error) {
     console.error("Error saving data:", error);
-    res.status(500).json({ error: "Failed to save data." }); // Error response
+    res.status(500).json({ error: "Failed to save data." });
   }
 });
-
 
 
 
@@ -130,11 +153,42 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Express server running on port 3000.");
+
+app.post("/subscription", async (req, res) => {
+  const data = req.body;
+
+  try {
+    const newUsersubsc = new Subscription(data); // Create a new document from the data
+    await newUsersubsc.save(); // Save to MongoDB
+    res.status(201).json({ message: "Data saved successfully." }); // Success response
+  } catch (error) {
+    console.error("Error saving data:", error);
+    res.status(500).json({ error: "Failed to save data." }); // Error response
+  }
 });
 
 
 
+
+app.get('/subscription/:userEmail', async (req, res) => {
+  try {
+    const userEmail = req.params.userEmail; // Get user email from request parameters
+    
+    const subscription = await Subscription.findOne({ userEmail });
+
+    if (subscription) {
+      res.status(200).json({ exist: true, subscription });
+    } else {
+      res.status(200).json({ exist: false });
+    }
+  } catch (error) {
+    console.error("Error fetching subscription data:", error);
+    res.status(500).json({ error: "An error occurred while fetching subscription data" });
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Express server running on port 3000.");
+});
 
 

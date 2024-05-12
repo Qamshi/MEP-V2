@@ -50,3 +50,8 @@ textarea {
   /* Other styles... */
 }
 
+/*  date and time*/
+.custom-width {
+  width: 280px;
+}
+

@@ -5,10 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Footer from "./Footer";
 import Navbar2 from "./Navbar2";
-import './feedback.css';
 
-import UserFeedback from "@ntheanh201/react-user-feedback";
-import "@ntheanh201/react-user-feedback/dist/styles.css";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -91,18 +88,6 @@ const LandingPage = () => {
           />
         </div>
       </div>
-      <UserFeedback
-          disabled={false}
-          allowImage={false}
-          feedbackTypes={[
-            { value: "general", label: "General" },
-            { value: "bug", label: "Bug" },
-            { value: "idea", label: "Idea" },
-          ]}
-          onSubmit={(values, onError) => {
-            console.log("values: ", values);
-          }}
-        />
       <Footer />
     </div>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import { Activity, ChevronDown, Flash, Lock, Scale, Server, TagUser } from "./Icons.jsx";
-
+import Feedback from './Feedback';
 // import { FeedbackFish } from '@feedback-fish/react';
 
 export default function App() {
@@ -28,6 +28,9 @@ export default function App() {
   const handlePaymentClick = () => {
     navigate("/payment");
   };
+  const handleLandingClick = () => {
+    navigate("/landing");
+  };
   
 // export default function App() {
   const icons = {
@@ -45,7 +48,7 @@ export default function App() {
     <Navbar>
       <NavbarBrand>
         <AcmeLogo />
-        <p className="font-bold text-inherit">MEP</p>
+        <p className="font-bold text-inherit" onClick={handleLandingClick} style={{ cursor: 'pointer' }}>MEP</p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <Dropdown>
@@ -115,9 +118,10 @@ export default function App() {
         </NavbarItem>
         {/* <FeedbackFish projectId="960b2eb9ed945b"> */}
         <NavbarItem>
-          <Link color="foreground" onClick={handleFeedbackClick} style={{ cursor: 'pointer' }}>
+              <Feedback/>
+          {/* <Link color="foreground" onClick={handleFeedbackClick} style={{ cursor: 'pointer' }}>
             Feedback
-          </Link>
+          </Link> */}
         </NavbarItem>
         {/* </FeedbackFish> */}
       </NavbarContent>

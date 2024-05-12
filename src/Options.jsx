@@ -10,7 +10,7 @@ import "./App.css";
 import Footer from "./Footer";
 import GenderSelector from "./GenderSelector";
 import Navbar2 from "./Navbar2";
-import PriceRange from "./PriceRange";
+import PriceRange from "./Target_audience";
 import Purpose from "./Purpose";
 import Tabs from "./Tabs";
 import { useTextareaContext } from './TextareaProvider'; // Import the context

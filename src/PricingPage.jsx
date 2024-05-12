@@ -3,10 +3,16 @@
 // import { window } from 'browser';
 import { useState } from 'react';
 import styles from './pricing.module.css';
+import { useTextareaContext } from './TextareaProvider'; // Use context
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
+
 
 export const frequencies = [
-  { id: '1', value: '1', label: 'Monthly', priceSuffix: '/month' },
-  { id: '2', value: '2', label: 'Annually', priceSuffix: '/year' },
+  { id: '1', value: '1', label: 'Daily', priceSuffix: '/day' },
+  { id: '2', value: '2', label: 'Weekly', priceSuffix: '/week' },
+  { id: '3', value: '3', label: 'Monthly', priceSuffix: '/month' },
 ];
 
 export const tiers = [
@@ -42,7 +48,7 @@ export const tiers = [
     featured: false,
     highlighted: true,
     soldOut: false,
-    cta: `Get started`,
+    cta: `Go Pro`,
   },
   {
     name: 'Monthly Plan',
@@ -59,7 +65,7 @@ export const tiers = [
     featured: true,
     highlighted: true,
     soldOut: false,
-    cta: `Get started`,
+    cta: `Go Pro`,
   },
 ];
 
@@ -86,6 +92,10 @@ const cn = (...args) => args.filter(Boolean).join(' ');
 
 export default function PricingPage() {
   const [frequency, setFrequency] = useState(frequencies[0]);
+  const navigate = useNavigate();
+  const {
+    userEmail,
+  } = useTextareaContext();
 
   const bannerText = '';
 
@@ -232,16 +242,95 @@ export default function PricingPage() {
                   ) : null}
                 </p>
                 <a
-  onClick={(e) => {
-    e.preventDefault();
-    openNewTab(
-      tier.id === '0'
-        ? 'https://buy.stripe.com/test_8wMeXEfFV22z1iMaEF'
-        : tier.id === '1'
-        ? 'https://buy.stripe.com/test_00g7vc2T922z0eI146'
-        : 'https://buy.stripe.com/test_5kA6r851h0YvgdGcMP'
-    );
-  }}
+// onClick={async (e) => {
+//   e.preventDefault();
+//   if (tier.id === '0') {
+//     const currentTime = new Date();
+//     const startTime = currentTime.getTime(); // Get current time in milliseconds
+//     const endTime = new Date(currentTime.getTime() + (24 * 60 * 60 * 1000)); // Add 24 hours to current time
+//     openNewTab('https://buy.stripe.com/test_8wMeXEfFV22z1iMaEF')
+//     navigate("/post")
+//     const postData = {
+//       userEmail,
+//       status: 'Active',
+//       ads_count: 15,
+//       plan: '1',
+//       start_time: startTime,
+//       end_time: endTime,
+//     };
+
+//     try {
+//       const userDataResponse = await axios.post("http://localhost:3000/subscription", postData);
+//       console.log("Data saved:", userDataResponse); // Success log
+//     } catch (error) {
+//       console.error("Error saving data:", error); // Error log
+//     }
+//   } else {
+//     // For other tiers, open the respective stripe checkout link
+//     openNewTab(
+//       tier.id === '1'
+//         ? 'https://buy.stripe.com/test_00g7vc2T922z0eI146'
+//         : 'https://buy.stripe.com/test_5kA6r851h0YvgdGcMP'
+//     );
+//   }
+// }}
+
+onClick={async (e) => {
+  e.preventDefault();
+  const currentTime = new Date();
+  const startTime = currentTime.getTime(); // Get current time in milliseconds
+  
+  // Calculate end time based on the plan
+  let endTime;
+  let adsCount;
+  let plan;
+  if (tier.id === '0') {
+    // For plan 0, end time is 24 hours after start time
+    endTime = new Date(startTime + (24 * 60 * 60 * 1000));
+    adsCount = 15;
+    plan = '1';
+
+    // Open the specified link in a new tab for tier 0
+    window.open('https://buy.stripe.com/test_8wMeXEfFV22z1iMaEF', '_blank');
+  } else if (tier.id === '1') {
+    // For plan 1, end time is 7 days after start time
+    endTime = new Date(startTime + (7 * 24 * 60 * 60 * 1000));
+    adsCount = 30;
+    plan = '2';
+  } else if (tier.id === '2') {
+    // For plan 2, end time is 30 days after start time
+    endTime = new Date(startTime + (30 * 24 * 60 * 60 * 1000));
+    adsCount = 50;
+    plan = '3';
+  }
+  
+  // Open the respective stripe checkout link and navigate to "/post" for all tiers
+  const stripeCheckoutLink = tier.id === '1' ? 'https://buy.stripe.com/test_00g7vc2T922z0eI146' : 'https://buy.stripe.com/test_5kA6r851h0YvgdGcMP';
+  openNewTab(stripeCheckoutLink);
+  navigate("/plan");
+
+  const postData = {
+    userEmail,
+    status: 'Active',
+    ads_count: adsCount,
+    plan: plan,
+    start_time: startTime,
+    end_time: endTime.getTime(), // Convert end time to milliseconds
+  };
+
+  try {
+    const userDataResponse = await axios.post("http://localhost:3000/subscription", postData);
+    console.log("Data saved:", userDataResponse); // Success log
+  } catch (error) {
+    console.error("Error saving data:", error); // Error log
+  }
+}}
+
+
+
+
+
+  
   aria-describedby={tier.id}
   className={cn(
     'flex mt-6 shadow-sm',
