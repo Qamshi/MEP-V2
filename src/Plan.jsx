@@ -94,9 +94,11 @@ const Plan = () => {
   const [attemptedNext, setAttemptedNext] = useState(false);
 
   useEffect(() => {
-    if (attemptedNext) {
-      const isFieldEmpty = isAnyFieldEmpty();
-      setShowPopup(isFieldEmpty);
+    const isFieldEmpty = isAnyFieldEmpty();
+    setShowPopup(isFieldEmpty);
+    // if (attemptedNext) {
+    //   const isFieldEmpty = isAnyFieldEmpty();
+    //   setShowPopup(isFieldEmpty);
       // Automatically hide the popup after 1 second if it's shown
       if (isFieldEmpty) {
         const timer = setTimeout(() => {
@@ -104,8 +106,7 @@ const Plan = () => {
         }, 1000); // 1000 milliseconds = 1 second
         return () => clearTimeout(timer); // Cleanup on unmount
       }
-    }
-  }, [productName, productDescription, imageURL, attemptedNext]);
+    }, [productName, productDescription, imageURL]);
 
   const isAnyFieldEmpty = () => {
     return (

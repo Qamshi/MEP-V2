@@ -47,6 +47,9 @@
 
 // export default TextArea1;
 
+
+
+
 import { Textarea } from "@nextui-org/react";
 import React from "react";
 import PhoneInput from "react-phone-number-input";
@@ -56,20 +59,20 @@ import { useTextareaContext } from "./TextareaProvider"; // Import the Context h
 const TextArea1 = () => {
   const { productName, setProductName, websiteURL, setWebsiteURL, phoneNumber, setPhoneNumber } = useTextareaContext(); // Access the Context
 
-  const handlePhoneNumberChange = (value) => {
-    // Check if the value is defined
-    if (value) {
-      // Check if the input value length is greater than 11
-      if (value.length > 11) {
-        // If the input value is longer than 11 characters, do not update the state
-        return;
-      }
-      setPhoneNumber(value);
-    } else {
-      // If the value is undefined, clear the phone number state
-      setPhoneNumber("");
-    }
-  };
+  // const handlePhoneNumberChange = (value) => {
+  //   // Check if the value is defined
+  //   if (value) {
+  //     // Check if the input value length is greater than 11
+  //     if (value.length > 11) {
+  //       // If the input value is longer than 11 characters, do not update the state
+  //       return;
+  //     }
+  //     setPhoneNumber(value);
+  //   } else {
+  //     // If the value is undefined, clear the phone number state
+  //     setPhoneNumber("");
+  //   }
+  // };
 
   return (
     <div className="flex flex-col items-center mt-6">
@@ -100,7 +103,7 @@ const TextArea1 = () => {
               defaultCountry="PK"
               placeholder="Enter your phone number"
               value={phoneNumber} // Context value
-              onChange={handlePhoneNumberChange} // Custom onChange handler
+              onChange={setPhoneNumber} // Custom onChange handler
               maxLength={12} // Set the maximum length to 11
             />
           </div>

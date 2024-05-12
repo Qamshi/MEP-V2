@@ -11,10 +11,19 @@ const TextArea2 = () => {
     productName,
   } = useTextareaContext(); // Access Context values
 
-  const [loading, setLoading] = useState(false);
+  const [descriptionLoading, setDescriptionLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
+
+  const handleGenerateImage = () => {
+    setImageLoading(true); // Start image loading state
+    // Add your logic for generating the image here
+    console.log("Generate image button clicked");
+    setImageLoading(false); // Reset image loading state
+  };
+
 
   const handleGenerateDescription = async () => {
-    setLoading(true); // Start loading state
+    setDescriptionLoading(true); // Start loading state
     try {
       const descriptionResponse = await axios.post(
         "http://localhost:5000/generate-description",
@@ -48,7 +57,7 @@ const TextArea2 = () => {
     } catch (error) {
       console.error("Error generating description:", error.message);
     } finally {
-      setLoading(false); // Reset loading state
+      setDescriptionLoading(false); // Reset loading state
     }
   };
 
@@ -69,11 +78,18 @@ const TextArea2 = () => {
           <Button
             color="primary"
             onClick={handleGenerateDescription} // Use the function
-            disabled={loading} // Disable button when loading
+            disabled={descriptionLoading}
           >
-            {loading ? "Generating..." : "Copilot"}
+            {descriptionLoading ? "Generating..." : "Copilot"}
           </Button>
           <ImageUploader />
+          <Button
+            color="primary"
+            onClick={handleGenerateImage} // Use the function
+            disabled={imageLoading}
+          >
+            {imageLoading ? "Generating..." : "Copilot"}
+          </Button>
         </div>
       </div>
     </div>
