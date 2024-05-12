@@ -56,6 +56,7 @@ const userDataSchema = new mongoose.Schema(
     selectedDate: Date,
     imageURL: String, // URL of the uploaded image
     adAudience: [String],
+    selectedPlan: String,
   },
   { collection: "userdata" } // Collection name for MongoDB
 );

@@ -95,6 +95,7 @@ export default function PricingPage() {
   const navigate = useNavigate();
   const {
     userEmail,
+    setSelectedPlan,
   } = useTextareaContext();
 
   const bannerText = '';
@@ -242,38 +243,6 @@ export default function PricingPage() {
                   ) : null}
                 </p>
                 <a
-// onClick={async (e) => {
-//   e.preventDefault();
-//   if (tier.id === '0') {
-//     const currentTime = new Date();
-//     const startTime = currentTime.getTime(); // Get current time in milliseconds
-//     const endTime = new Date(currentTime.getTime() + (24 * 60 * 60 * 1000)); // Add 24 hours to current time
-//     openNewTab('https://buy.stripe.com/test_8wMeXEfFV22z1iMaEF')
-//     navigate("/post")
-//     const postData = {
-//       userEmail,
-//       status: 'Active',
-//       ads_count: 15,
-//       plan: '1',
-//       start_time: startTime,
-//       end_time: endTime,
-//     };
-
-//     try {
-//       const userDataResponse = await axios.post("http://localhost:3000/subscription", postData);
-//       console.log("Data saved:", userDataResponse); // Success log
-//     } catch (error) {
-//       console.error("Error saving data:", error); // Error log
-//     }
-//   } else {
-//     // For other tiers, open the respective stripe checkout link
-//     openNewTab(
-//       tier.id === '1'
-//         ? 'https://buy.stripe.com/test_00g7vc2T922z0eI146'
-//         : 'https://buy.stripe.com/test_5kA6r851h0YvgdGcMP'
-//     );
-//   }
-// }}
 
 onClick={async (e) => {
   e.preventDefault();
@@ -309,6 +278,7 @@ onClick={async (e) => {
   openNewTab(stripeCheckoutLink);
   navigate("/plan");
 
+  setSelectedPlan(plan);
   const postData = {
     userEmail,
     status: 'Active',

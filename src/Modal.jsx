@@ -22,6 +22,7 @@ export default function App() {
     resetAll,
     adAudience,
     selectedDate,
+    selectedPlan,
   } = useTextareaContext();
   const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
 
@@ -45,6 +46,7 @@ export default function App() {
           imageURL,
           adAudience: Array.from(adAudience),
           selectedDate,
+          selectedPlan,
         };
         const userDataResponse = await axios.post("http://localhost:3000/userdata", postData);
         console.log("date", selectedDate);

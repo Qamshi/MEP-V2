@@ -3,7 +3,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { useTextareaContext } from './TextareaProvider'; // Corrected import statement
+import { useTextareaContext } from './TextareaProvider'; 
 
 export default function BasicDateTimePicker() {
   const { handleDateChange } = useTextareaContext(); // Consume handleDateChange from the context
@@ -20,8 +20,8 @@ export default function BasicDateTimePicker() {
         <DateTimePicker
           label="Ad Schedule Time"
           className="custom-width"
-          value={selectedDateTime} // Use the state as the value
-          onChange={handleChange} // Pass the handleChange function as the onChange handler
+          value={selectedDateTime} 
+          onChange={handleChange} 
         />
       </DemoContainer>
     </LocalizationProvider>
