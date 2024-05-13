@@ -13,8 +13,13 @@ export default function App() {
     navigate("/plan");
   };
   const handleLogoutClick = () => {
+    // Remove user state from local storage
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('isSignedIn');
+    localStorage.removeItem('formData');
     navigate("/login");
   };
+
   const handleFeedbackClick = () => {
     navigate("/feedback");
   };

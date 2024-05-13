@@ -14,6 +14,8 @@ import Plan from "./Plan";
 import Posting from "./Posting";
 import TextareaProvider from "./TextareaProvider"; // Import the Context Provider
 import Modal from "./Modal";
+
+
 export default function App() {
   return (
     <TextareaProvider>

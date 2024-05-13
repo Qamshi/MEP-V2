@@ -1,9 +1,9 @@
+// import axios from "axios";
 // import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
+// import { AcmeLogo } from "./AcmeLogo.jsx";
 // import PasswordRecovery from "./PasswordRecovery";
-// import axios from "axios";
 // import { useTextareaContext } from './TextareaProvider'; // Import context
-
 
 // function SignInForm() {
 //   const [state, setState] = useState({
@@ -21,6 +21,7 @@
 
 //   const [isConfirming, setIsConfirming] = useState(false);
 //   const navigate = useNavigate();
+
 
 //   const handleChange = (evt) => {
 //     const value = evt.target.value;
@@ -45,9 +46,6 @@
 //       const response = await axios.post("http://localhost:3000/signin", { email, password });
 
 //       if (response.status === 200) {
-//         // On successful authentication, handle token storage or navigation
-//         const { token } = response.data;
-//         localStorage.setItem("authToken", token); // Storing auth token in local storage
 //         setUserEmail(email);
 //         setValidationError("");
 //         navigate("/landing"); // Navigate to another page after successful sign-in
@@ -104,22 +102,24 @@
 //             {!isConfirming && (
 //               <>
 //                 <div className="flex justify-center space-x-4">
-//                   <button
+//                 <AcmeLogo/>
+//                   {/* <button
 //                     type="button"
 //                     className="social"
 //                     onClick={() => handleSocialLogin("facebook")}
 //                   >
+                    
 //                     <i className="fab fa-facebook-f text-blue-500" />
-//                   </button>
-//                   <button
+//                   </button> */}
+//                   {/* <button
 //                     type="button"
 //                     className="social"
 //                     onClick={() => handleSocialLogin("google")}
 //                   >
 //                     <i className="fab fa-google-plus-g text-red-500" />
-//                   </button>
+//                   </button> */}
 //                 </div>
-//                 <span className="text-gray-600">or use your account</span>
+//                 <span className="text-gray-600">Market Ease Plus</span>
 //               </>
 //             )}
 //             <input
@@ -206,8 +206,15 @@
 
 // export default SignInForm;
 
+
+
+
+
+
+
+
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import PasswordRecovery from "./PasswordRecovery";
@@ -229,6 +236,26 @@ function SignInForm() {
 
   const [isConfirming, setIsConfirming] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const { email, isSignedIn } = getUserState();
+    if (isSignedIn) {
+      setUserEmail(email);
+      navigate("/landing"); // Navigate to the last page the user was on
+    }
+  }, [setUserEmail, navigate]);
+
+  const saveUserState = (email, isSignedIn) => {
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('isSignedIn', isSignedIn.toString());
+  };
+  
+  const getUserState = () => {
+    const email = localStorage.getItem('userEmail');
+    const isSignedIn = localStorage.getItem('isSignedIn') === 'true';
+    return { email, isSignedIn };
+  };
+
 
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -253,12 +280,10 @@ function SignInForm() {
       const response = await axios.post("http://localhost:3000/signin", { email, password });
 
       if (response.status === 200) {
-        // On successful authentication, handle token storage or navigation
-        const { token } = response.data;
-        localStorage.setItem("authToken", token); // Storing auth token in local storage
         setUserEmail(email);
         setValidationError("");
-        navigate("/landing"); // Navigate to another page after successful sign-in
+        saveUserState(email, true); // Save user state to local storage
+        navigate("/landing"); 
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
