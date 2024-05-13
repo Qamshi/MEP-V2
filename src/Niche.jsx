@@ -1,8 +1,214 @@
+// import { Select, SelectItem, SelectSection } from "@nextui-org/react";
+// import React from "react";
+// import { useTextareaContext } from "./TextareaProvider"; // Import the context hook
+
+
+// export default function App() {
+//   const headingClasses = "flex w-full sticky top-1 z-20 py-1.5 px-2 bg-default-100 shadow-small rounded-small";
+//   const { setSelectedItemFromSelect } = useTextareaContext(); // Get the update function from context
+//   const handleSelectChange = (item) => {
+//     setSelectedItemFromSelect(item);
+//   };
+
+//   return (
+//     <Select
+//       label="Select Niche"
+//       placeholder="Select Your Product Niche"
+//       className="max-w-xs"
+//       variant="bordered"
+//       scrollShadowProps={{ isEnabled: false, }}
+//       isRequired
+//       size="lg"
+//       onChange={handleSelectChange} // Pass the handleSelectChange function to the Select component
+
+//     >
+//       <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Groceries & Pets">
+//         <SelectItem key="Fresh Produce">Fresh Produce</SelectItem>
+//         <SelectItem key="Dry Fruits">Dry Fruits</SelectItem>
+//         <SelectItem key="Breakfast, Choco & Snacks">Breakfast, Choco & Snacks</SelectItem>
+//         <SelectItem key="Beverages">Beverages</SelectItem>
+//         <SelectItem key="Food Staples">Food Staples</SelectItem>
+//         <SelectItem key="Laundry & Household">Laundry & Household</SelectItem>
+//         <SelectItem key="Frozen Food">Frozen Food</SelectItem>
+//         <SelectItem key="Cat">Cat</SelectItem>
+//         <SelectItem key="Dog">Dog</SelectItem>
+//         <SelectItem key="Fish">Fish</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Health & Beauty">
+//         <SelectItem key="Makeup">Makeup</SelectItem>
+//         <SelectItem key="Beauty Tools">Beauty Tools</SelectItem>
+//         <SelectItem key="Skin Care">Skin Care</SelectItem>
+//         <SelectItem key="Bath & Body">Bath & Body</SelectItem>
+//         <SelectItem key="Men's Care">Men's Care</SelectItem>
+//         <SelectItem key="Personal Care">Personal Care</SelectItem>
+//         <SelectItem key="Fragrances">Fragrances</SelectItem>
+//         <SelectItem key="Sexual Wellness">Sexual Wellness</SelectItem>
+//         <SelectItem key="Medical Supplies">Medical Supplies</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Men's Fashion">
+//         <SelectItem key="T-Shirts & Tanks">T-Shirts & Tanks</SelectItem>
+//         <SelectItem key="Shirts & Polo">Shirts & Polo</SelectItem>
+//         <SelectItem key="Pants & Jeans">Pants & Jeans</SelectItem>
+//         <SelectItem key="Shorts, Joggers & Sweats">Shorts, Joggers & Sweats</SelectItem>
+//         <SelectItem key="Kurtas & Shalwar Kameez">Kurtas & Shalwar Kameez</SelectItem>
+//         <SelectItem key="Winter Clothing">Winter Clothing</SelectItem>
+//         <SelectItem key="Inner Wear">Inner Wear</SelectItem>
+//         <SelectItem key="Shoes">Shoes</SelectItem>
+//         <SelectItem key="Boy's Clothing">Boy's Clothing</SelectItem>
+//         <SelectItem key="Boy's Shoes">Boy's Shoes</SelectItem>
+//         <SelectItem key="Boy's Accessories">Boy's Accessories</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Women's Fashion">
+//         <SelectItem key="Unstitched Fabric">Unstitched Fabric</SelectItem>
+//         <SelectItem key="Kurtas & Shalwar Kameez">Kurtas & Shalwar Kameez</SelectItem>
+//         <SelectItem key="Tops">Tops</SelectItem>
+//         <SelectItem key="Muslim Wear">Muslim Wear</SelectItem>
+//         <SelectItem key="Sleepwear & Innerwear">Sleepwear & Innerwear</SelectItem>
+//         <SelectItem key="Bras, Panties & Lingerie">Bras, Panties & Lingerie</SelectItem>
+//         <SelectItem key="Pants, Jeans & Leggings">Pants, Jeans & Leggings</SelectItem>
+//         <SelectItem key="Dresses & Skirts">Dresses & Skirts</SelectItem>
+//         <SelectItem key="Winter Clothing">Winter Clothing</SelectItem>
+//         <SelectItem key="Shoes">Shoes</SelectItem>
+//         <SelectItem key="Girls Clothing">Girls Clothing</SelectItem>
+//         <SelectItem key="Girls Shoes">Girls Shoes</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Mother & Baby">
+//         <SelectItem key="Milk Formula & Baby Food">Milk Formula & Baby Food</SelectItem>
+//         <SelectItem key="Diapering & Potty">Diapering & Potty</SelectItem>
+//         <SelectItem key="Feeding">Feeding</SelectItem>
+//         <SelectItem key="Maternity Care">Maternity Care</SelectItem>
+//         <SelectItem key="Baby Gear">Baby Gear</SelectItem>
+//         <SelectItem key="Nursery">Nursery</SelectItem>
+//         <SelectItem key="Baby Personal Care">Baby Personal Care</SelectItem>
+//         <SelectItem key="Clothing & Accessories">Clothing & Accessories</SelectItem>
+//         <SelectItem key="Baby & Toddler Toys">Baby & Toddler Toys</SelectItem>
+//         <SelectItem key="Remote Control & Vehicles">Remote Control & Vehicles</SelectItem>
+//         <SelectItem key="Sports & Outdoor Play">Sports & Outdoor Play</SelectItem>
+//         <SelectItem key="Toys & Games">Toys & Games</SelectItem>
+//       </SelectSection>
+
+//       <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Home & Lifestyle">
+//         <SelectItem key="Bath">Bath</SelectItem>
+//         <SelectItem key="Bedding">Bedding</SelectItem>
+//         <SelectItem key="Decor">Decor</SelectItem>
+//         <SelectItem key="Furniture">Furniture</SelectItem>
+//         <SelectItem key="Kitchen & Dining">Kitchen & Dining</SelectItem>
+//         <SelectItem key="Lighting">Lighting</SelectItem>
+//         <SelectItem key="Laundry & Cleaning">Laundry & Cleaning</SelectItem>
+//         <SelectItem key="Tools, DIY & Outdoor">Tools, DIY & Outdoor</SelectItem>
+//         <SelectItem key="Stationery & Craft">Stationery & Craft</SelectItem>
+//         <SelectItem key="Media, Music & Books">Media, Music & Books</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses }} title="Electronic Devices">
+//         <SelectItem key="Smart Phones">Smart Phones</SelectItem>
+//         <SelectItem key="Feature Phones">Feature Phones</SelectItem>
+//         <SelectItem key="Tablets">Tablets</SelectItem>
+//         <SelectItem key="Monitors">Monitors</SelectItem>
+//         <SelectItem key="Laptops">Laptops</SelectItem>
+//         <SelectItem key="Desktops">Desktops</SelectItem>
+//         <SelectItem key="Smart Watches">Smart Watches</SelectItem>
+//         <SelectItem key="Gaming Consoles">Gaming Consoles</SelectItem>
+//         <SelectItem key="Cameras & Drones">Cameras & Drones</SelectItem>
+//         <SelectItem key="Security Cameras">Security Cameras</SelectItem>
+//         <SelectItem key="Daraz Like New">Daraz Like New</SelectItem>
+//         <SelectItem key="Landline Phones">Landline Phones</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses }} title="Electronic Accessories">
+//         <SelectItem key="Mobile Accessories">Mobile Accessories</SelectItem>
+//         <SelectItem key="Headphones & Headsets">Headphones & Headsets</SelectItem>
+//         <SelectItem key="Wearable">Wearable</SelectItem>
+//         <SelectItem key="Camera Accessories">Camera Accessories</SelectItem>
+//         <SelectItem key="Computer Accessories">Computer Accessories</SelectItem>
+//         <SelectItem key="Storage">Storage</SelectItem>
+//         <SelectItem key="Printers">Printers</SelectItem>
+//         <SelectItem key="Computer Components">Computer Components</SelectItem>
+//         <SelectItem key="Portable Speakers">Portable Speakers</SelectItem>
+//         <SelectItem key="Network Components">Network Components</SelectItem>
+//         <SelectItem key="Gaming Accessories">Gaming Accessories</SelectItem>
+//         <SelectItem key="Monitors & Accessories">Monitors & Accessories</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses }} title="TV & Home Appliances">
+//         <SelectItem key="Air Conditioner">Air Conditioner</SelectItem>
+//         <SelectItem key="Televisions">Televisions</SelectItem>
+//         <SelectItem key="Refrigerators & Freezers">Refrigerators & Freezers</SelectItem>
+//         <SelectItem key="Home Audio & Theater">Home Audio & Theater</SelectItem>
+//         <SelectItem key="Washing Machine">Washing Machine</SelectItem>
+//         <SelectItem key="Kitchen Appliances">Kitchen Appliances</SelectItem>
+//         <SelectItem key="Cooling & Heating">Cooling & Heating</SelectItem>
+//         <SelectItem key="Irons & Garment Care">Irons & Garment Care</SelectItem>
+//         <SelectItem key="Generator, UPS & Solar">Generator, UPS & Solar</SelectItem>
+//         <SelectItem key="Projectors & Players">Projectors & Players</SelectItem>
+//         <SelectItem key="TV Accessories">TV Accessories</SelectItem>
+//         <SelectItem key="Vacuums & Floor Care">Vacuums & Floor Care</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses }} title="Sports & Outdoor">
+//         <SelectItem key="Exercise & Fitness">Exercise & Fitness</SelectItem>
+//         <SelectItem key="Supplements">Supplements</SelectItem>
+//         <SelectItem key="Shoes & Clothing">Shoes & Clothing</SelectItem>
+//         <SelectItem key="Team Sports">Team Sports</SelectItem>
+//         <SelectItem key="Racket Sports">Racket Sports</SelectItem>
+//         <SelectItem key="Outdoor Recreation">Outdoor Recreation</SelectItem>
+//         <SelectItem key="Fitness Gadgets">Fitness Gadgets</SelectItem>
+//         <SelectItem key="Sports Accessories">Sports Accessories</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses }} title="Watches, Bags & Jewellery">
+//         <SelectItem key="Men's Watches">Men's Watches</SelectItem>
+//         <SelectItem key="Women's Watches">Women's Watches</SelectItem>
+//         <SelectItem key="Kid's Watches">Kid's Watches</SelectItem>
+//         <SelectItem key="Women's Bags">Women's Bags</SelectItem>
+//         <SelectItem key="Men's Bags">Men's Bags</SelectItem>
+//         <SelectItem key="Luggage & Suitcase">Luggage & Suitcase</SelectItem>
+//         <SelectItem key="Women's Jewellery">Women's Jewellery</SelectItem>
+//         <SelectItem key="Men's Jewellery">Men's Jewellery</SelectItem>
+//         <SelectItem key="Men's Accessories">Men's Accessories</SelectItem>
+//         <SelectItem key="Women's Accessories">Women's Accessories</SelectItem>
+//         <SelectItem key="Sunglasses & Eyewear">Sunglasses & Eyewear</SelectItem>
+//       </SelectSection>
+//       <SelectSection showDivider classNames={{ heading: headingClasses }} title="Automotive & Motorbike">
+//         <SelectItem key="Automotive">Automotive</SelectItem>
+//         <SelectItem key="Motorcycle">Motorcycle</SelectItem>
+//         <SelectItem key="Loaders & Rickshaw">Loaders & Rickshaw</SelectItem>
+//       </SelectSection>
+//     </Select>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { Select, SelectItem, SelectSection } from "@nextui-org/react";
 import React from "react";
+import { useTextareaContext } from "./TextareaProvider"; // Import the context hook
+
 
 export default function App() {
-    const headingClasses = "flex w-full sticky top-1 z-20 py-1.5 px-2 bg-default-100 shadow-small rounded-small";
+  const headingClasses = "flex w-full sticky top-1 z-20 py-1.5 px-2 bg-default-100 shadow-small rounded-small";
+  const { setniche } = useTextareaContext(); // Get the update function from context
+  const handleSelectChange = (event) => {
+    console.log(event.target.value); // Adjusted to use event.target.value
+    setniche(event.target.value); // Adjusted to use event.target.value
+  };
 
   return (
     <Select
@@ -10,157 +216,159 @@ export default function App() {
       placeholder="Select Your Product Niche"
       className="max-w-xs"
       variant="bordered"
-      scrollShadowProps={{isEnabled : false,}}
+      scrollShadowProps={{ isEnabled: false, }}
+      isRequired
+      size="lg"
+      onChange={handleSelectChange} // Pass the handleSelectChange function to the Select component
+
     >
-      <SelectSection showDivider classNames={{heading: headingClasses,}} title="Groceries & Pets">
-        <SelectItem key="1">Fresh Produce</SelectItem>
-        <SelectItem key="2">Dry Fruits</SelectItem>
-        <SelectItem key="3">Breakfast, Choco & Snacks</SelectItem>
-        <SelectItem key="4">Beverages</SelectItem>
-        <SelectItem key="5">Food Staples</SelectItem>
-        <SelectItem key="6">Laundry & Household</SelectItem>
-        <SelectItem key="7">Frozen Food</SelectItem>
-        <SelectItem key="8">Cat</SelectItem>
-        <SelectItem key="9">Dog</SelectItem>
-        <SelectItem key="10">Fish</SelectItem>
+      <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Groceries & Pets">
+        <SelectItem key="Fresh Produce">Fresh Produce</SelectItem>
+        <SelectItem key="Dry Fruits">Dry Fruits</SelectItem>
+        <SelectItem key="Breakfast, Choco & Snacks">Breakfast, Choco & Snacks</SelectItem>
+        <SelectItem key="Beverages">Beverages</SelectItem>
+        <SelectItem key="Food Staples">Food Staples</SelectItem>
+        <SelectItem key="Laundry & Household">Laundry & Household</SelectItem>
+        <SelectItem key="Frozen Food">Frozen Food</SelectItem>
+        <SelectItem key="Cat">Cat</SelectItem>
+        <SelectItem key="Dog">Dog</SelectItem>
+        <SelectItem key="Fish">Fish</SelectItem>
       </SelectSection>
-      <SelectSection showDivider classNames={{heading: headingClasses,}} title="Health & Beauty">
-        <SelectItem key="11">Makeup</SelectItem>
-        <SelectItem key="12">Beauty Tools</SelectItem>
-        <SelectItem key="13">Skin Care</SelectItem>
-        <SelectItem key="14">Bath & Body</SelectItem>
-        <SelectItem key="15">Men's Care</SelectItem>
-        <SelectItem key="16">Personal Care</SelectItem>
-        <SelectItem key="17">Fragrances</SelectItem>
-        <SelectItem key="18">Sexual Wellness</SelectItem>
-        <SelectItem key="19">Medical Supplies</SelectItem>
+      <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Health & Beauty">
+        <SelectItem key="Makeup">Makeup</SelectItem>
+        <SelectItem key="Beauty Tools">Beauty Tools</SelectItem>
+        <SelectItem key="Skin Care">Skin Care</SelectItem>
+        <SelectItem key="Bath & Body">Bath & Body</SelectItem>
+        <SelectItem key="Men's Care">Men's Care</SelectItem>
+        <SelectItem key="Personal Care">Personal Care</SelectItem>
+        <SelectItem key="Fragrances">Fragrances</SelectItem>
+        <SelectItem key="Sexual Wellness">Sexual Wellness</SelectItem>
+        <SelectItem key="Medical Supplies">Medical Supplies</SelectItem>
       </SelectSection>
-      <SelectSection showDivider classNames={{heading: headingClasses,}} title="Men's Fashion">
-        <SelectItem key="20">T-Shirts & Tanks</SelectItem>
-        <SelectItem key="21">Shirts & Polo</SelectItem>
-        <SelectItem key="22">Pants & Jeans</SelectItem>
-        <SelectItem key="23">Shorts, Joggers & Sweats</SelectItem>
-        <SelectItem key="24">Kurtas & Shalwar Kameez</SelectItem>
-        <SelectItem key="25">Winter Clothing</SelectItem>
-        <SelectItem key="26">Inner Wear</SelectItem>
-        <SelectItem key="27">Shoes</SelectItem>
-        <SelectItem key="28">Boy's Clothing</SelectItem>
-        <SelectItem key="29">Boy's Shoes</SelectItem>
-        <SelectItem key="30">Boy's Accessories</SelectItem>
+      <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Men's Fashion">
+        <SelectItem key="T-Shirts & Tanks">T-Shirts & Tanks</SelectItem>
+        <SelectItem key="Shirts & Polo">Shirts & Polo</SelectItem>
+        <SelectItem key="Pants & Jeans">Pants & Jeans</SelectItem>
+        <SelectItem key="Shorts, Joggers & Sweats">Shorts, Joggers & Sweats</SelectItem>
+        <SelectItem key="Kurtas & Shalwar Kameez">Kurtas & Shalwar Kameez</SelectItem>
+        <SelectItem key="Winter Clothing">Winter Clothing</SelectItem>
+        <SelectItem key="Inner Wear">Inner Wear</SelectItem>
+        <SelectItem key="Shoes">Shoes</SelectItem>
+        <SelectItem key="Boy's Clothing">Boy's Clothing</SelectItem>
+        <SelectItem key="Boy's Shoes">Boy's Shoes</SelectItem>
+        <SelectItem key="Boy's Accessories">Boy's Accessories</SelectItem>
       </SelectSection>
-      <SelectSection showDivider classNames={{heading: headingClasses,}} title="Women's Fashion">
-        <SelectItem key="31">Unstitched Fabric</SelectItem>
-        <SelectItem key="32">Kurtas & Shalwar Kameez</SelectItem>
-        <SelectItem key="33">Tops</SelectItem>
-        <SelectItem key="34">Muslim Wear</SelectItem>
-        <SelectItem key="35">Sleepwear & Innerwear</SelectItem>
-        <SelectItem key="36">Bras, Panties & Lingerie</SelectItem>
-        <SelectItem key="37">Pants, Jeans & Leggings</SelectItem>
-        <SelectItem key="38">Dresses & Skirts</SelectItem>
-        <SelectItem key="39">Winter Clothing</SelectItem>
-        <SelectItem key="40">Shoes</SelectItem>
-        <SelectItem key="41">Girls Clothing</SelectItem>
-        <SelectItem key="42">Girls Shoes</SelectItem>
+      <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Women's Fashion">
+        <SelectItem key="Unstitched Fabric">Unstitched Fabric</SelectItem>
+        <SelectItem key="Kurtas & Shalwar Kameez">Kurtas & Shalwar Kameez</SelectItem>
+        <SelectItem key="Tops">Tops</SelectItem>
+        <SelectItem key="Muslim Wear">Muslim Wear</SelectItem>
+        <SelectItem key="Sleepwear & Innerwear">Sleepwear & Innerwear</SelectItem>
+        <SelectItem key="Bras, Panties & Lingerie">Bras, Panties & Lingerie</SelectItem>
+        <SelectItem key="Pants, Jeans & Leggings">Pants, Jeans & Leggings</SelectItem>
+        <SelectItem key="Dresses & Skirts">Dresses & Skirts</SelectItem>
+        <SelectItem key="Winter Clothing">Winter Clothing</SelectItem>
+        <SelectItem key="Shoes">Shoes</SelectItem>
+        <SelectItem key="Girls Clothing">Girls Clothing</SelectItem>
+        <SelectItem key="Girls Shoes">Girls Shoes</SelectItem>
       </SelectSection>
-      <SelectSection showDivider classNames={{heading: headingClasses,}} title="Mother & Baby">
-  <SelectItem key="milk_formula_baby_food">Milk Formula & Baby Food</SelectItem>
-  <SelectItem key="diapering_potty">Diapering & Potty</SelectItem>
-  <SelectItem key="feeding">Feeding</SelectItem>
-  <SelectItem key="maternity_care">Maternity Care</SelectItem>
-  <SelectItem key="baby_gear">Baby Gear</SelectItem>
-  <SelectItem key="nursery">Nursery</SelectItem>
-  <SelectItem key="baby_personal_care">Baby Personal Care</SelectItem>
-  <SelectItem key="clothing_accessories">Clothing & Accessories</SelectItem>
-  <SelectItem key="baby_toddler_toys">Baby & Toddler Toys</SelectItem>
-  <SelectItem key="remote_control_vehicles">Remote Control & Vehicles</SelectItem>
-  <SelectItem key="sports_outdoor_play">Sports & Outdoor Play</SelectItem>
-  <SelectItem key="toys_games">Toys & Games</SelectItem>
-</SelectSection>
+      <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Mother & Baby">
+        <SelectItem key="Milk Formula & Baby Food">Milk Formula & Baby Food</SelectItem>
+        <SelectItem key="Diapering & Potty">Diapering & Potty</SelectItem>
+        <SelectItem key="Feeding">Feeding</SelectItem>
+        <SelectItem key="Maternity Care">Maternity Care</SelectItem>
+        <SelectItem key="Baby Gear">Baby Gear</SelectItem>
+        <SelectItem key="Nursery">Nursery</SelectItem>
+        <SelectItem key="Baby Personal Care">Baby Personal Care</SelectItem>
+        <SelectItem key="Clothing & Accessories">Clothing & Accessories</SelectItem>
+        <SelectItem key="Baby & Toddler Toys">Baby & Toddler Toys</SelectItem>
+        <SelectItem key="Remote Control & Vehicles">Remote Control & Vehicles</SelectItem>
+        <SelectItem key="Sports & Outdoor Play">Sports & Outdoor Play</SelectItem>
+        <SelectItem key="Toys & Games">Toys & Games</SelectItem>
+      </SelectSection>
 
-<SelectSection showDivider classNames={{heading: headingClasses,}} title="Home & Lifestyle">
-  <SelectItem key="bath">Bath</SelectItem>
-  <SelectItem key="bedding">Bedding</SelectItem>
-  <SelectItem key="decor">Decor</SelectItem>
-  <SelectItem key="furniture">Furniture</SelectItem>
-  <SelectItem key="kitchen_dining">Kitchen & Dining</SelectItem>
-  <SelectItem key="lighting">Lighting</SelectItem>
-  <SelectItem key="laundry_cleaning">Laundry & Cleaning</SelectItem>
-  <SelectItem key="tools_diy_outdoor">Tools, DIY & Outdoor</SelectItem>
-  <SelectItem key="stationery_craft">Stationery & Craft</SelectItem>
-  <SelectItem key="media_music_books">Media, Music & Books</SelectItem>
-</SelectSection>
-<SelectSection showDivider classNames={{ heading: headingClasses }} title="Electronic Devices">
-  <SelectItem key="smart_phones">Smart Phones</SelectItem>
-  <SelectItem key="feature_phones">Feature Phones</SelectItem>
-  <SelectItem key="tablets">Tablets</SelectItem>
-  <SelectItem key="monitors">Monitors</SelectItem>
-  <SelectItem key="laptops">Laptops</SelectItem>
-  <SelectItem key="desktops">Desktops</SelectItem>
-  <SelectItem key="smart_watches">Smart Watches</SelectItem>
-  <SelectItem key="gaming_consoles">Gaming Consoles</SelectItem>
-  <SelectItem key="cameras_drones">Cameras & Drones</SelectItem>
-  <SelectItem key="security_cameras">Security Cameras</SelectItem>
-  <SelectItem key="daraz_like_new">Daraz Like New</SelectItem>
-  <SelectItem key="landline_phones">Landline Phones</SelectItem>
-</SelectSection>
-<SelectSection showDivider classNames={{ heading: headingClasses }} title="Electronic Accessories">
-  <SelectItem key="mobile_accessories">Mobile Accessories</SelectItem>
-  <SelectItem key="headphones_headsets">Headphones & Headsets</SelectItem>
-  <SelectItem key="wearable">Wearable</SelectItem>
-  <SelectItem key="camera_accessories">Camera Accessories</SelectItem>
-  <SelectItem key="computer_accessories">Computer Accessories</SelectItem>
-  <SelectItem key="storage">Storage</SelectItem>
-  <SelectItem key="printers">Printers</SelectItem>
-  <SelectItem key="computer_components">Computer Components</SelectItem>
-  <SelectItem key="portable_speakers">Portable Speakers</SelectItem>
-  <SelectItem key="network_components">Network Components</SelectItem>
-  <SelectItem key="gaming_accessories">Gaming Accessories</SelectItem>
-  <SelectItem key="monitors_accessories">Monitors & Accessories</SelectItem>
-</SelectSection>
-<SelectSection showDivider classNames={{ heading: headingClasses }} title="TV & Home Appliances">
-  <SelectItem key="air_conditioner">Air Conditioner</SelectItem>
-  <SelectItem key="televisions">Televisions</SelectItem>
-  <SelectItem key="refrigerators_freezers">Refrigerators & Freezers</SelectItem>
-  <SelectItem key="home_audio_theater">Home Audio & Theater</SelectItem>
-  <SelectItem key="washing_machine">Washing Machine</SelectItem>
-  <SelectItem key="kitchen_appliances">Kitchen Appliances</SelectItem>
-  <SelectItem key="cooling_heating">Cooling & Heating</SelectItem>
-  <SelectItem key="irons_garment_care">Irons & Garment Care</SelectItem>
-  <SelectItem key="generator_ups_solar">Generator, UPS & Solar</SelectItem>
-  <SelectItem key="projectors_players">Projectors & Players</SelectItem>
-  <SelectItem key="tv_accessories">TV Accessories</SelectItem>
-  <SelectItem key="vacuums_floor_care">Vacuums & Floor Care</SelectItem>
-</SelectSection>
-<SelectSection showDivider classNames={{ heading: headingClasses }} title="Sports & Outdoor">
-  <SelectItem key="exercise_fitness">Exercise & Fitness</SelectItem>
-  <SelectItem key="supplements">Supplements</SelectItem>
-  <SelectItem key="shoes_clothing">Shoes & Clothing</SelectItem>
-  <SelectItem key="team_sports">Team Sports</SelectItem>
-  <SelectItem key="racket_sports">Racket Sports</SelectItem>
-  <SelectItem key="outdoor_recreation">Outdoor Recreation</SelectItem>
-  <SelectItem key="fitness_gadgets">Fitness Gadgets</SelectItem>
-  <SelectItem key="sports_accessories">Sports Accessories</SelectItem>
-</SelectSection>
-<SelectSection showDivider classNames={{ heading: headingClasses }} title="Watches, Bags & Jewellery">
-  <SelectItem key="mens_watches">Men's Watches</SelectItem>
-  <SelectItem key="womens_watches">Women's Watches</SelectItem>
-  <SelectItem key="kids_watches">Kid's Watches</SelectItem>
-  <SelectItem key="womens_bags">Women's Bags</SelectItem>
-  <SelectItem key="mens_bags">Men's Bags</SelectItem>
-  <SelectItem key="luggage_suitcase">Luggage & Suitcase</SelectItem>
-  <SelectItem key="womens_jewellery">Women's Jewellery</SelectItem>
-  <SelectItem key="mens_jewellery">Men's Jewellery</SelectItem>
-  <SelectItem key="mens_accessories">Men's Accessories</SelectItem>
-  <SelectItem key="womens_accessories">Women's Accessories</SelectItem>
-  <SelectItem key="sunglasses_eyewear">Sunglasses & Eyewear</SelectItem>
-</SelectSection>
-<SelectSection showDivider classNames={{ heading: headingClasses }} title="Automotive & Motorbike">
-  <SelectItem key="automotive">Automotive</SelectItem>
-  <SelectItem key="motorcycle">Motorcycle</SelectItem>
-  <SelectItem key="loaders_rickshaw">Loaders & Rickshaw</SelectItem>
-</SelectSection>
-
-
+      <SelectSection showDivider classNames={{ heading: headingClasses, }} title="Home & Lifestyle">
+        <SelectItem key="Bath">Bath</SelectItem>
+        <SelectItem key="Bedding">Bedding</SelectItem>
+        <SelectItem key="Decor">Decor</SelectItem>
+        <SelectItem key="Furniture">Furniture</SelectItem>
+        <SelectItem key="Kitchen & Dining">Kitchen & Dining</SelectItem>
+        <SelectItem key="Lighting">Lighting</SelectItem>
+        <SelectItem key="Laundry & Cleaning">Laundry & Cleaning</SelectItem>
+        <SelectItem key="Tools, DIY & Outdoor">Tools, DIY & Outdoor</SelectItem>
+        <SelectItem key="Stationery & Craft">Stationery & Craft</SelectItem>
+        <SelectItem key="Media, Music & Books">Media, Music & Books</SelectItem>
+      </SelectSection>
+      <SelectSection showDivider classNames={{ heading: headingClasses }} title="Electronic Devices">
+        <SelectItem key="Smart Phones">Smart Phones</SelectItem>
+        <SelectItem key="Feature Phones">Feature Phones</SelectItem>
+        <SelectItem key="Tablets">Tablets</SelectItem>
+        <SelectItem key="Monitors">Monitors</SelectItem>
+        <SelectItem key="Laptops">Laptops</SelectItem>
+        <SelectItem key="Desktops">Desktops</SelectItem>
+        <SelectItem key="Smart Watches">Smart Watches</SelectItem>
+        <SelectItem key="Gaming Consoles">Gaming Consoles</SelectItem>
+        <SelectItem key="Cameras & Drones">Cameras & Drones</SelectItem>
+        <SelectItem key="Security Cameras">Security Cameras</SelectItem>
+        <SelectItem key="Daraz Like New">Daraz Like New</SelectItem>
+        <SelectItem key="Landline Phones">Landline Phones</SelectItem>
+      </SelectSection>
+      <SelectSection showDivider classNames={{ heading: headingClasses }} title="Electronic Accessories">
+        <SelectItem key="Mobile Accessories">Mobile Accessories</SelectItem>
+        <SelectItem key="Headphones & Headsets">Headphones & Headsets</SelectItem>
+        <SelectItem key="Wearable">Wearable</SelectItem>
+        <SelectItem key="Camera Accessories">Camera Accessories</SelectItem>
+        <SelectItem key="Computer Accessories">Computer Accessories</SelectItem>
+        <SelectItem key="Storage">Storage</SelectItem>
+        <SelectItem key="Printers">Printers</SelectItem>
+        <SelectItem key="Computer Components">Computer Components</SelectItem>
+        <SelectItem key="Portable Speakers">Portable Speakers</SelectItem>
+        <SelectItem key="Network Components">Network Components</SelectItem>
+        <SelectItem key="Gaming Accessories">Gaming Accessories</SelectItem>
+        <SelectItem key="Monitors & Accessories">Monitors & Accessories</SelectItem>
+      </SelectSection>
+      <SelectSection showDivider classNames={{ heading: headingClasses }} title="TV & Home Appliances">
+        <SelectItem key="Air Conditioner">Air Conditioner</SelectItem>
+        <SelectItem key="Televisions">Televisions</SelectItem>
+        <SelectItem key="Refrigerators & Freezers">Refrigerators & Freezers</SelectItem>
+        <SelectItem key="Home Audio & Theater">Home Audio & Theater</SelectItem>
+        <SelectItem key="Washing Machine">Washing Machine</SelectItem>
+        <SelectItem key="Kitchen Appliances">Kitchen Appliances</SelectItem>
+        <SelectItem key="Cooling & Heating">Cooling & Heating</SelectItem>
+        <SelectItem key="Irons & Garment Care">Irons & Garment Care</SelectItem>
+        <SelectItem key="Generator, UPS & Solar">Generator, UPS & Solar</SelectItem>
+        <SelectItem key="Projectors & Players">Projectors & Players</SelectItem>
+        <SelectItem key="TV Accessories">TV Accessories</SelectItem>
+        <SelectItem key="Vacuums & Floor Care">Vacuums & Floor Care</SelectItem>
+      </SelectSection>
+      <SelectSection showDivider classNames={{ heading: headingClasses }} title="Sports & Outdoor">
+        <SelectItem key="Exercise & Fitness">Exercise & Fitness</SelectItem>
+        <SelectItem key="Supplements">Supplements</SelectItem>
+        <SelectItem key="Shoes & Clothing">Shoes & Clothing</SelectItem>
+        <SelectItem key="Team Sports">Team Sports</SelectItem>
+        <SelectItem key="Racket Sports">Racket Sports</SelectItem>
+        <SelectItem key="Outdoor Recreation">Outdoor Recreation</SelectItem>
+        <SelectItem key="Fitness Gadgets">Fitness Gadgets</SelectItem>
+        <SelectItem key="Sports Accessories">Sports Accessories</SelectItem>
+      </SelectSection>
+      <SelectSection showDivider classNames={{ heading: headingClasses }} title="Watches, Bags & Jewellery">
+        <SelectItem key="Men's Watches">Men's Watches</SelectItem>
+        <SelectItem key="Women's Watches">Women's Watches</SelectItem>
+        <SelectItem key="Kid's Watches">Kid's Watches</SelectItem>
+        <SelectItem key="Women's Bags">Women's Bags</SelectItem>
+        <SelectItem key="Men's Bags">Men's Bags</SelectItem>
+        <SelectItem key="Luggage & Suitcase">Luggage & Suitcase</SelectItem>
+        <SelectItem key="Women's Jewellery">Women's Jewellery</SelectItem>
+        <SelectItem key="Men's Jewellery">Men's Jewellery</SelectItem>
+        <SelectItem key="Men's Accessories">Men's Accessories</SelectItem>
+        <SelectItem key="Women's Accessories">Women's Accessories</SelectItem>
+        <SelectItem key="Sunglasses & Eyewear">Sunglasses & Eyewear</SelectItem>
+      </SelectSection>
+      <SelectSection showDivider classNames={{ heading: headingClasses }} title="Automotive & Motorbike">
+        <SelectItem key="Automotive">Automotive</SelectItem>
+        <SelectItem key="Motorcycle">Motorcycle</SelectItem>
+        <SelectItem key="Loaders & Rickshaw">Loaders & Rickshaw</SelectItem>
+      </SelectSection>
     </Select>
   );
 }

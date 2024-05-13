@@ -20,6 +20,7 @@ export default function Target_audience() {
         className="max-w-xs"
         onSelectionChange={handleSelectionChange} // Use the new handler
         selectionMode="multiple"
+        isRequired
       >
         {metrics.map((metric) => (
           <SelectItem key={metric.value} value={metric.value}>

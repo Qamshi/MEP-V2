@@ -5,14 +5,35 @@ import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Footer from "./Footer";
 import Navbar2 from "./Navbar2";
+import axios from 'axios';
+import { useTextareaContext } from './TextareaProvider'; // Use context
+
+
 
 import AdCounter from "./AdCounter";
 const LandingPage = () => {
   const navigate = useNavigate();
 
-  const handleGetStartedClick = () => {
-    navigate("/plan");
+  const {
+    userEmail,
+  } = useTextareaContext();
+
+  const handleGetStartedClick = async () => {
+    try {
+      const subscriptionResponse = await axios.get(`http://localhost:3000/subscription/${userEmail}`);
+      if (subscriptionResponse.data.exist) {
+        // Email exists in the subscription database
+        navigate("/plan");
+      } else {
+        // Email does not exist in the subscription database
+        navigate('/payment');
+      }
+    } catch (error) {
+      console.error("Error checking subscription:", error);
+      // Handle the error accordingly, maybe show an error message to the user
+    }
   };
+  
 
   const handleLearnMoreClick = () => {
     window.open("https://github.com", "_blank");

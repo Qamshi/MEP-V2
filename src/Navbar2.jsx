@@ -5,9 +5,14 @@ import { AcmeLogo } from "./AcmeLogo.jsx";
 import { Activity, ChevronDown, Flash, Lock, Scale, Server, TagUser } from "./Icons.jsx";
 import Feedback from './Feedback';
 // import { FeedbackFish } from '@feedback-fish/react';
+import { useTextareaContext } from './TextareaProvider'; // Use context
+
 
 export default function App() {
   const navigate = useNavigate();
+  const {
+    resetAll,
+  } = useTextareaContext();
 
   const handlePlanClick = () => {
     navigate("/plan");
@@ -16,7 +21,7 @@ export default function App() {
     // Remove user state from local storage
     localStorage.removeItem('userEmail');
     localStorage.removeItem('isSignedIn');
-    localStorage.removeItem('formData');
+    resetAll();
     navigate("/login");
   };
 

@@ -20,6 +20,7 @@ export default function GenderSelector() {
         className="max-w-xs"
         onSelectionChange={handleSelectionChange} // Store new selection in context
         selectionMode="multiple" // Allow multiple selections
+        isRequired
       >
         {gender.map((g) => (
           <SelectItem key={g.value} value={g.value}>

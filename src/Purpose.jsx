@@ -18,7 +18,8 @@ export default function Purpose() {
         placeholder="Select your Ad Purpose"
         selectedKeys={adPurpose} // Use the context value
         className="max-w-xs"
-        onSelectionChange={handleSelectionChange} // Use the new handler
+        onSelectionChange={handleSelectionChange}
+        isRequired // Use the new handler
       >
         {metrics.map((metric) => (
           <SelectItem key={metric.value} value={metric.value}>

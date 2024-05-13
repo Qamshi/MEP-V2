@@ -20,6 +20,7 @@ const TextArea1 = () => {
             placeholder="Enter your Selling Product Name"
             value={productName} // Context value
             onChange={(e) => setProductName(e.target.value)} // Update context
+            isRequired
           />
         </div>
         <div className="mb-4">

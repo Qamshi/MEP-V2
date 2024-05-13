@@ -114,11 +114,15 @@ const TextArea2 = () => {
     phoneNumber, setPhoneNumber
   } = useTextareaContext(); // Access Context values
 
-  const [loading, setLoading] = useState(false);
+  const [descriptionLoading, setDescriptionLoading] = useState(false); // Separate loading state for description button
+  const [imageLoading, setImageLoading] = useState(false); // Separate loading state for image button
+
+  // const [loading, setLoading] = useState(false);
   const handleGenerateImage = () => {
   };
+  
   const handleGenerateDescription = async () => {
-    setLoading(true); // Start loading state
+    setDescriptionLoading(true); // Start loading state
     try {
       const descriptionResponse = await axios.post(
         "http://localhost:5000/generate-description",
@@ -152,7 +156,7 @@ const TextArea2 = () => {
     } catch (error) {
       console.error("Error generating description:", error.message);
     } finally {
-      setLoading(false); // Reset loading state
+      setDescriptionLoading(false); // Reset loading state
     }
   };
 
@@ -179,24 +183,25 @@ const TextArea2 = () => {
             placeholder="Write description of your selling product."
             value={productDescription} // Context value
             onChange={(e) => setProductDescription(e.target.value)} // Context update
+            isRequired
           />
         </div>
         <div className="flex items-center justify-between">
           <Button className="button-1"
             color="primary"
             onClick={handleGenerateDescription} // Use the function
-            disabled={loading} // Disable button when loading
+            disabled={descriptionLoading} // Disable button when loading
           >
-            {loading ? "Generating..." : "Copilot"}
+            {descriptionLoading ? "Generating..." : "Copilot"}
           </Button>
           <ImageUploader />
 
           <Button className="button-2"
             color="primary"
             onClick={handleGenerateImage} // Use the function
-            disabled={loading} // Disable button when loading
+            disabled={imageLoading} // Disable button when loading
           >
-            {loading ? "Generating AI image" : "Get Image"}
+            {imageLoading ? "Generating AI image" : "Get Image"}
           </Button>
         </div>
       </div>

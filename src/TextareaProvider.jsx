@@ -22,6 +22,7 @@ const TextareaProvider = ({ children }) => {
   const [selectedDate, setSelectedDate] = useState(null); // Initialize with null
 
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [niche, setniche] = useState("");
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -105,7 +106,9 @@ const TextareaProvider = ({ children }) => {
         selectedDate,
         handleDateChange, // Add handleDateChange to the context value
         selectedPlan,
-        setSelectedPlan, 
+        setSelectedPlan,
+        niche,
+        setniche,
       }}
     >
       {children}
@@ -118,16 +121,6 @@ export const useTextareaContext = () => {
 };
 
 export default TextareaProvider;
-
-
-
-
-
-
-
-
-
-
 
 
 
