@@ -20,11 +20,11 @@ export const tiers = [
     // href: '/subscribe',
     price: { '1': '$25', '2': '$50', '3': '$100' },
     discountPrice: { '1': '', '2': '', '3': '' },
-    description: `Get all goodies for free, no credit card required.`,
+    description: `All-in-one Access`,
     features: [
       `Multi-platform compatibility`,
       `Real-time notification system`,
-      `Advanced user permissions`,
+      `Insights related to your Ad`,
     ],
     featured: false,
     highlighted: false,
