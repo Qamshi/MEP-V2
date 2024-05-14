@@ -45,12 +45,12 @@ const Plan = () => {
         }, 1000); // 1000 milliseconds = 1 second
         return () => clearTimeout(timer); // Cleanup on unmount
       }
-    }, [productName, productDescription, imageURL]);
+    }, [productName, productDescription, imageURL, phoneNumber]);
 
   const isAnyFieldEmpty = () => {
     return (
       !productName ||
-      (showTextArea2 && (!productDescription || !imageURL))
+      (showTextArea2 && (!productDescription || !imageURL || !phoneNumber))
     );
   };
 

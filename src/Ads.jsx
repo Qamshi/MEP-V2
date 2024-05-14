@@ -4,7 +4,7 @@ import React from "react";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 import Navbar2 from "./Navbar2";
 import Preview from "./Preview";
 import Preview2 from "./Preview2";
@@ -22,7 +22,8 @@ const Ads = () => {
   };
 
   return (
-    <div style={{ height: "530px", width: "640px", overflow: "hidden" }} className="z-index-1">
+    <div style={{ height: "auto", maxHeight:'530px', width:'100%', maxWidth: "640px", overflow: "hidden",  }} className="z-index-1">
+    {/* </div><div style={{ height: "530px", width: "640px", overflow: "hidden" }} className="z-index-1"> */}
       <Navbar2 />
       <div className="relative isolate px-6 pt-14 lg:px-8 z-index-1">
         <div
@@ -62,7 +63,7 @@ const Ads = () => {
       </div>
       
       {/* <Tabs/> */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

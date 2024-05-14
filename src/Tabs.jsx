@@ -228,7 +228,7 @@ const MyTabs = () => {
     switch (selectedTab) {
       case "Plan-I":
         // Enable only "Plan-II" (Options) tab if productName, productDescription, and imageURL are filled
-        return !(productName && productDescription && imageURL);
+        return !(productName && productDescription && imageURL && phoneNumber);
       case "Plan-II":
         // Disable all tabs except "Plan-I" (Product) if required fields for "Plan-I" are not filled
         // return !productName || !productDescription || !imageURL;

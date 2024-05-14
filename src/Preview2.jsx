@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Preview.css';
 import commentIcon from './images/comment.png';
 import likeIcon from './images/like.png';
@@ -8,6 +8,16 @@ import { useTextareaContext } from './TextareaProvider'; // Import the context
 
 const AdPreview2 = () => {
   const { imageURL, productName, productDescription } = useTextareaContext();
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const maxLines = 6;
+  const description = productDescription.split('\n');
+  const truncatedDescription = description.slice(0, maxLines).join('\n');
+  const isDescriptionTruncated = description.length > maxLines;
+
+  const handleSeeMoreClick = () => {
+    setShowFullDescription(true);
+  };
+
   const actionButtonStyles = {
     width: '20px',
     marginLeft: '50px',
@@ -33,14 +43,20 @@ const AdPreview2 = () => {
   };
 
   return (
-    <div className="ad-preview">
+    <div className="ad-preview" style={{maxWidth:'100%'}}>
+    {/* <div className="ad-preview"> */}
       <div className="ad-content">
         <div className="ad-image">
         <img src={imageURL} alt={productName || 'Ad Image'}  />
         </div>
         <div className="ad-details">
-        <h3>{productName || 'Product Name'}</h3>
-        <p>{productDescription || 'Advertisement'}</p>
+        <h3 style={{ fontSize: "clamp(16px, 3vw, 20px)" }}>{productName || 'Product Name'}</h3>
+        {/* <h3>{productName || 'Product Name'}</h3> */}
+        <p>
+            {showFullDescription ? productDescription : truncatedDescription}
+            {isDescriptionTruncated && !showFullDescription && <span style={{cursor:'pointer'}} onClick={handleSeeMoreClick} className="see-more">See more</span>}
+          </p>
+        {/* <p>{productDescription || 'Advertisement'}</p> */}
           <div className="like" style={likeButtonStyles}>
             <img src={likeIcon} alt="Like" />
           </div>

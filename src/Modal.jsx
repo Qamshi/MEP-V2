@@ -170,7 +170,7 @@ export default function App() {
       <Button
         onPress={handleSubmit}
         color="primary"
-        style={{ marginTop: '75px', marginLeft: '255px' }}
+        style={{ marginTop: '10px', marginLeft: '5px' }}
       >
         Submit
       </Button>

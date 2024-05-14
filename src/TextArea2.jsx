@@ -162,21 +162,11 @@ const TextArea2 = () => {
 
   return (
     <div className="flex flex-col items-center mt-6">
-      <div className="mb-4" style={{marginTop:'-23px'}}>
-          <div className="phone-input-wrapper">
-            <PhoneInput
-              defaultCountry="PK"
-              placeholder="Enter your phone number"
-              value={phoneNumber} // Context value
-              onChange={setPhoneNumber} // Custom onChange handler
-              maxLength={12} // Set the maximum length to 11
-            />
-          </div>
-        </div>
+      
       <div className="w-full max-w-md" style={{height:'130px !important'}}>
         <div className="mb-4">
           <Textarea
-            size="mb"
+            size="lg"
             variant="bordered"
             label="Product Description"
             labelPlacement="outside"
@@ -184,6 +174,7 @@ const TextArea2 = () => {
             value={productDescription} // Context value
             onChange={(e) => setProductDescription(e.target.value)} // Context update
             isRequired
+            disableAutosize
           />
         </div>
         <div className="flex items-center justify-between">
@@ -195,14 +186,26 @@ const TextArea2 = () => {
             {descriptionLoading ? "Generating..." : "Copilot"}
           </Button>
           <ImageUploader />
-
+          
+          {/* 
           <Button className="button-2"
             color="primary"
             onClick={handleGenerateImage} // Use the function
             disabled={imageLoading} // Disable button when loading
           >
             {imageLoading ? "Generating AI image" : "Get Image"}
-          </Button>
+          </Button> */}
+        </div>
+        <div className="mb-4" style={{marginTop:'49px'}}>
+          <div className="phone-input-wrapper">
+            <PhoneInput
+              defaultCountry="PK"
+              placeholder="Enter your phone number"
+              value={phoneNumber} // Context value
+              onChange={setPhoneNumber} // Custom onChange handler
+              maxLength={12} // Set the maximum length to 11
+            />
+          </div>
         </div>
       </div>
     </div>

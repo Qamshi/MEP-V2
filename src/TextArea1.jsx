@@ -15,7 +15,7 @@ const TextArea1 = () => {
         <div className="mb-4">
           <Textarea
             variant="bordered"
-            label="Product Name"
+            label="Headline"
             labelPlacement="outside"
             placeholder="Enter your Selling Product Name"
             value={productName} // Context value

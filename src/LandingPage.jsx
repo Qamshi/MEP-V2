@@ -10,7 +10,7 @@ import { useTextareaContext } from './TextareaProvider'; // Use context
 
 
 
-import AdCounter from "./AdCounter";
+// import AdCounter from "./AdCounter";
 const LandingPage = () => {
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ const LandingPage = () => {
   return (
     <div style={{ height: "530px", width: "640px", overflow: "hidden" }} className="z-index-1">
       <Navbar2 />
-      <AdCounter/>
+      {/* <AdCounter/> */}
       <div className="relative isolate px-6 pt-14 lg:px-8 z-index-1">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -56,7 +56,7 @@ const LandingPage = () => {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32 z-index-1" style={{marginTop:'-45px'}}>
+        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32 z-index-1" style={{marginTop:'-15px'}}>
           <div className="hidden sm:mb-4 sm:flex sm:justify-center z-index-1">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 z-index-1">
               Announcing our next round of funding.{' '}
