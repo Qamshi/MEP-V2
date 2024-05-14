@@ -1,13 +1,63 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./App.css";
-import BarChartpost from "./BarChartpost";
-import Navbar2 from "./Navbar2";
 
+import Navbar2 from "./Navbar2";
+import { useTextareaContext } from './TextareaProvider'; // Assuming you have defined this context
+import { BarChart } from '@mui/x-charts/BarChart';
 const Cards = () => {
   const { id } = useParams();
-  console.log("ID:", id);
+  const { userEmail } = useTextareaContext();
+  const [insights, setInsights] = useState({});
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    if (userEmail && id) {
+      sendDataToServer(userEmail, id);
+    }
+  }, [userEmail, id]);
+
+  const sendDataToServer = async (userEmail, campaignName) => {
+    try {
+      const response = await fetch('http://localhost:2000/send-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userEmail, campaignName }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setInsights(data);
+        console.log('Data received successfully.', data);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error);
+        console.error('Failed to fetch data.', errorData);
+      }
+    } catch (error) {
+      setError('Error fetching data: ' + error.message);
+      console.error('Error fetching data:', error);
+    }
+  };
+  
+  const dataset = [
+    { Reach: insights.reach, Impressions: insights.impressions, Clicks:insights.clicks , Engagement: insights.post_engagement },
+  ];
+
+  const chartSetting = {
+    series: [
+      { dataKey: 'Reach' },
+      { dataKey: 'Impressions' },
+      { dataKey: 'Clicks' },
+      { dataKey: 'Engagement' },
+    ],
+    height: 270,
+    categoryScale: {
+      categories: ['Reach', 'Impressions', 'Clicks', 'Engagement'],
+    },
+  };
 
   return (
     <div>
@@ -20,7 +70,7 @@ const Cards = () => {
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <p className="text-gray-500 text-sm font-medium">Reach</p>
-                  <p className="text-lg font-bold">350,897</p>
+                  <p className="text-lg font-bold">{insights.reach}</p>
                 </div>
                 <div className="bg-red-500 text-white rounded-full p-2">
                   <i className="fas fa-chart-bar" />
@@ -31,7 +81,7 @@ const Cards = () => {
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <p className="text-gray-500 text-sm font-medium">Impression</p>
-                  <p className="text-lg font-bold">49.65%</p>
+                  <p className="text-lg font-bold">{insights.impressions}</p>
                 </div>
                 <div className="bg-teal-500 text-white rounded-full p-2">
                   <i className="fas fa-percentage" />
@@ -42,7 +92,7 @@ const Cards = () => {
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <p className="text-gray-500 text-sm font-medium">Clicks</p>
-                  <p className="text-lg font-bold">12,456</p>
+                  <p className="text-lg font-bold">{insights.clicks}</p>
                 </div>
                 <div className="bg-orange-500 text-white rounded-full p-2">
                   <i className="fas fa-mouse-pointer" />
@@ -53,7 +103,7 @@ const Cards = () => {
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <p className="text-gray-500 text-sm font-medium" style={{marginLeft:'-11px'}}>Engagement</p>
-                  <p className="text-lg font-bold">24,789</p>
+                  <p className="text-lg font-bold">{insights.post_engagement}</p>
                 </div>
                 <div className="bg-purple-500 text-white rounded-full p-2">
                   <i className="fas fa-users" />
@@ -62,7 +112,17 @@ const Cards = () => {
             </div>
           </div>
           <div className="flex justify-center mt-4">
-            <BarChartpost />
+          <div style={{ width: '100%' }}>
+      <BarChart
+        dataset={dataset}
+        {...chartSetting}
+        slotProps={{
+          bar: {
+            clipPath: `inset(0px round 10px 10px 0px 0px)`,
+          },
+        }}
+      />
+    </div>
           </div>
           <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
             <div
