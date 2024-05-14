@@ -189,6 +189,25 @@ app.get('/subscription/:userEmail', async (req, res) => {
   }
 });
 
+
+app.delete('/subscription/:userEmail', async (req, res) => {
+  try {
+    const userEmail = req.params.userEmail;
+
+    // Find and delete the subscription by userEmail
+    const result = await Subscription.deleteOne({ userEmail });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: 'Subscription not found' });
+    }
+
+    res.status(200).json({ message: 'Subscription deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting subscription:', error);
+    res.status(500).json({ error: 'An error occurred while deleting the subscription' });
+  }
+});
+
 app.listen(3000, () => {
   console.log("Express server running on port 3000.");
 });

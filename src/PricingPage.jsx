@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './pricing.module.css';
 import { useTextareaContext } from './TextareaProvider'; // Use context
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import SubscriptionCheck from './SubscriptionCheck'; // Import the new component
 
 
 export const frequencies = [
@@ -14,7 +15,7 @@ export const frequencies = [
 
 export const tiers = [
   {
-    name: 'Subscription Plans',
+    name: 'Subscription Plan',
     id: '0',
     // href: '/subscribe',
     price: { '1': '$25', '2': '$50', '3': '$100' },
@@ -53,12 +54,14 @@ const cn = (...args) => args.filter(Boolean).join(' ');
 
 export default function PricingPage() {
   const [frequency, setFrequency] = useState(frequencies[0]);
+  const [userSubscription, setUserSubscription] = useState(null);
 
   const navigate = useNavigate();
   const {
     userEmail,
     setSelectedPlan,
   } = useTextareaContext();
+
 
   const tier = tiers[0];
   const bannerText = "";
@@ -113,157 +116,149 @@ export default function PricingPage() {
       console.error("Error saving data:", error); // Error log
     }
   };
+
+
   return (
-    <div
-      className={cn('flex flex-col w-full items-center', styles.fancyOverlay)}
-    >
-      <div className="w-full flex flex-col items-center mb-24">
-        <div className="mx-auto max-w-7xl px-6 xl:px-8">
-          <div className="mx-auto max-w-2xl sm:text-center">
-            <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-6xl !leading-tight">
-              Pricing
-            </h1>
-            
-          </div>
-
-          {bannerText ? (
-            <div className="flex justify-center my-4">
-              <p className="px-4 py-3 text-xs bg-gray-100 text-black dark:bg-gray-300/30 dark:text-white/80 rounded-xl">
-                {bannerText}
-              </p>
-            </div>
-          ) : null}
-
-          {frequencies.length > 1 ? (
-            <div className="mt-16 flex justify-center">
-               <div
-                role="radiogroup"
-                className="grid gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 bg-white dark:bg-black ring-1 ring-inset ring-gray-200/30 dark:ring-gray-800"
-                style={{
-                  gridTemplateColumns: `repeat(${frequencies.length}, minmax(0, 1fr))`,
-                }}
-              >
-                <p className="sr-only">Payment frequency</p>
-                {frequencies.map((option) => (
-                  <label
-                    className={cn(
-                      frequency.value === option.value
-                        ? 'bg-gray-500/90 text-white dark:bg-gray-900/70 dark:text-white/70'
-                        : 'bg-transparent text-gray-500 hover:bg-gray-500/10',
-                      'cursor-pointer rounded-full px-2.5 py-2 transition-all',
-                    )}
-                    key={option.value}
-                    htmlFor={option.value}
-                  >
-                    {option.label}
-
-                    <button
-                      value={option.value}
-                      id={option.value}
-                      className="hidden"
-                      role="radio"
-                      aria-checked={frequency.value === option.value}
-                      onClick={() => {
-                        setFrequency(
-                          frequencies.find(
-                            (f) => f.value === option.value,
-                          ),
-                        );
-                      }}
-                    >
-                      {option.label}
-                    </button>
-                  </label>
-                ))}
+    <>
+      <SubscriptionCheck userEmail={userEmail} />
+        <div
+          className={cn('flex flex-col w-full items-center', styles.fancyOverlay)}
+        >
+          <div className="w-full flex flex-col items-center mb-24">
+            <div className="mx-auto max-w-7xl px-6 xl:px-8">
+              <div className="mx-auto max-w-2xl sm:text-center">
+                <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-6xl !leading-tight">
+                  Pricing
+                </h1>
               </div>
-            </div>
-          ) : (
-            <div className="mt-12" aria-hidden="true"></div>
-          )}
-
-          <div className="flex flex-wrap xl:flex-nowrap items-center bg-white dark:bg-gray-900/80 backdrop-blur-md mx-auto mt-4 max-w-2xl rounded-3xl ring-1 ring-gray-300/70 dark:ring-gray-700 xl:mx-0 xl:flex xl:max-w-none">
-            <div className="p-8 sm:p-10 xl:flex-auto">
-              <h3 className="text-black dark:text-white text-2xl font-bold tracking-tight">{tier.name}</h3>
-              <p className="mt-6 text-base leading-7 text-gray-700 dark:text-gray-400">
-                {tier.description}
-              </p>
-              <div className="mt-12 flex items-center gap-x-4">
-                <h4 className="flex-none text-sm font-semibold leading-6 text-black dark:text-white">
-                  Included features
-                </h4>
-                <div className="h-px flex-auto bg-gray-100 dark:bg-gray-700" />
-              </div>
-
-              <ul className="mt-10 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-700 dark:text-gray-400">
-                {tier.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-center gap-x-2 text-sm"
-                  >
-                    <CheckIcon
-                      className="h-6 w-6 flex-none text-gray-500"
-                      aria-hidden="true"
-                    />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="-mt-2 p-2 xl:pr-8 xl:mt-0 w-full xl:max-w-md xl:flex-shrink-0">
-              <div
-                className={cn(
-                  'rounded-2xl py-10 text-center ring-1 ring-inset ring-gray-300/50 dark:ring-gray-800/50 xl:flex xl:flex-col xl:justify-center xl:py-16',
-                  styles.fancyGlass,
-                )}
-              >
-                <div className="mx-auto max-w-xs px-8">
-                  <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                    <span
-                      className={cn(
-                        'text-black dark:text-white text-5xl font-bold tracking-tight',
-                        tier.discountPrice &&
-                          tier.discountPrice[
-                            frequency.value
-                          ]
-                          ? 'line-through'
-                          : '',
-                      )}
-                    >
-                      {typeof tier.price === 'string'
-                        ? tier.price
-                        : tier.price[frequency.value]}
-                    </span>
-
-                    <span className="text-black dark:text-white">
-                      {typeof tier.discountPrice === 'string'
-                        ? tier.discountPrice
-                        : tier.discountPrice[frequency.value]}
-                    </span>
-
-                    <span className="text-sm font-semibold leading-6 tracking-wide text-gray-700 dark:text-gray-400">
-                      {frequency.priceSuffix}
-                    </span>
-                  </p>
-                  <a
-                    // href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex justify-center mt-8 flex-shrink-0"
-                    onClick={handleClick}
-                  >
-                    <button className="inline-flex items-center justify-center font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gray-300/70 text-gray-foreground hover:bg-gray-300/90 dark:bg-gray-700 dark:hover:bg-gray-700/90 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md">
-                      {tier.cta}
-                    </button>
-                  </a>
-                  <p className="mt-2 text-xs leading-5 text-gray-700 dark:text-gray-400">
-                    Sign up in seconds, no credit card required.
+  
+              {bannerText ? (
+                <div className="flex justify-center my-4">
+                  <p className="px-4 py-3 text-xs bg-gray-100 text-black dark:bg-gray-300/30 dark:text-white/80 rounded-xl">
+                    {bannerText}
                   </p>
                 </div>
+              ) : null}
+  
+              {frequencies.length > 1 ? (
+                <div className="mt-16 flex justify-center">
+                  <div
+                    role="radiogroup"
+                    aria-label="Subscription frequency"
+                    className="flex space-x-4"
+                  >
+                    {frequencies.map((f) => (
+                      <button
+                        key={f.id}
+                        className={cn(
+                          'rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                          frequency.value === f.value
+                            ? 'bg-gray-900 text-white hover:bg-gray-800'
+                            : 'bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
+                        )}
+                        onClick={() => setFrequency(f)}
+                      >
+                        {f.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+  
+              <div className="mt-16 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
+                {tiers.map((tier) => (
+                  <div
+                    key={tier.id}
+                    className={cn(
+                      'rounded-3xl px-6 pt-8 pb-8 shadow-lg ring-1 ring-gray-900/5',
+                      tier.featured
+                        ? 'bg-gray-900 text-white ring-gray-900/5'
+                        : 'bg-white text-gray-900 ring-gray-900/5 dark:bg-gray-900 dark:text-white dark:ring-gray-100/5'
+                    )}
+                  >
+                    <div className="flex flex-col justify-between h-full">
+                      <div>
+                        <h3
+                          id={`tier-${tier.id}`}
+                          className={cn(
+                            'text-2xl font-bold',
+                            tier.featured
+                              ? 'text-white'
+                              : 'text-gray-900 dark:text-white'
+                          )}
+                        >
+                          {tier.name}
+                        </h3>
+                        <p
+                          className={cn(
+                            'mt-4 text-4xl font-bold tracking-tight',
+                            tier.featured
+                              ? 'text-white'
+                              : 'text-gray-900 dark:text-white'
+                          )}
+                        >
+                          {tier.price[frequency.value]}
+                          <span className="text-base font-normal text-gray-500 dark:text-gray-400">
+                            {tier.priceSuffix}
+                          </span>
+                        </p>
+                        <p
+                          className={cn(
+                            'mt-4',
+                            tier.featured
+                              ? 'text-gray-300'
+                              : 'text-gray-600 dark:text-gray-400'
+                          )}
+                        >
+                          {tier.description}
+                        </p>
+                        <ul
+                          role="list"
+                          className={cn(
+                            'mt-8 space-y-3',
+                            tier.featured
+                              ? 'text-gray-300'
+                              : 'text-gray-600 dark:text-gray-400'
+                          )}
+                        >
+                          {tier.features.map((feature) => (
+                            <li key={feature} className="flex items-start">
+                              <CheckIcon
+                                className={cn(
+                                  tier.featured ? 'text-gray-300' : 'text-gray-500'
+                                )}
+                              />
+                              <span className="ml-3">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="mt-8">
+                        <a
+                        style={{cursor: 'pointer'}}
+                          href={tier.href}
+                          aria-describedby={`tier-${tier.id}`}
+                          className={cn(
+                            'block rounded-md py-2 px-3 text-center text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2',
+                            tier.featured
+                              ? 'bg-white text-gray-900 hover:bg-gray-100'
+                              : 'bg-gray-900 text-white hover:bg-gray-800 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700'
+                          )}
+                          onClick={handleClick}
+                        >
+                          {tier.cta}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    </>
   );
 }
+
+
+
