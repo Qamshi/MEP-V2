@@ -25,7 +25,7 @@ const AdPreview = () => {
       <div className="ad-content">
         {imageURL ? ( // Conditionally render the image
           <div className="ad-image">
-            <img src={imageURL} alt={productName || 'Ad Image'}  style={{maxWidth:'300%', height:"auto", width:'270px'}} />
+            <img src={imageURL} alt={productName || 'Ad Image'}  style={{maxWidth:'300%', height:"175px", width:'270px', objectFit:'cover'}} />
           </div>
         ) : (
           <div className="ad-image" style={{ height: '0', visibility: 'hidden' }}></div> // Placeholder to maintain layout

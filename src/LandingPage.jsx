@@ -33,7 +33,9 @@ const LandingPage = () => {
       // Handle the error accordingly, maybe show an error message to the user
     }
   };
-  
+  const handleReadmoreClick  = () => {
+    window.open("https://medium.com/@raomueez0/revolutionizing-digital-marketing-introducing-market-ease-plus-71166633381f");
+  };
 
   const handleLearnMoreClick = () => {
     window.open("https://github.com", "_blank");
@@ -56,11 +58,15 @@ const LandingPage = () => {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32 z-index-1" style={{marginTop:'-15px'}}>
+        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32 z-index-1" style={{marginTop:'-65px'}}>
           <div className="hidden sm:mb-4 sm:flex sm:justify-center z-index-1">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 z-index-1">
-              Announcing our next round of funding.{' '}
-              <a href="#" className="font-semibold text-indigo-600 z-index-1">
+              Maximizing MEP Potential.{' '}
+              <a href="#" className="font-semibold text-indigo-600 z-index-1"
+              onClick={(e) => {
+                e.preventDefault();
+                handleReadmoreClick();
+              }}>
                 <span className="absolute inset-0" aria-hidden="true" />
                 Read more <span aria-hidden="true">&rarr;</span>
               </a>
