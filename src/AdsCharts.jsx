@@ -11,7 +11,8 @@ const Cards = () => {
   const { userEmail } = useTextareaContext();
   const [insights, setInsights] = useState({});
   const [error, setError] = useState(null);
-
+  console.log("postData:", userEmail);
+  console.log("campaign Name:", id);
   useEffect(() => {
     if (userEmail && id) {
       sendDataToServer(userEmail, id);
@@ -48,10 +49,10 @@ const Cards = () => {
 
   const chartSetting = {
     series: [
-      { dataKey: 'Reach' },
-      { dataKey: 'Impressions' },
-      { dataKey: 'Clicks' },
-      { dataKey: 'Engagement' },
+      { dataKey: 'Reach', color: '#ed4d4d' },
+      { dataKey: 'Impressions', color: '#3abf94' },
+      { dataKey: 'Clicks' , color: '#ff8a00'},
+      { dataKey: 'Engagement', color: '#9b59ff' },
     ],
     height: 270,
     categoryScale: {

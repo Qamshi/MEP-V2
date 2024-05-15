@@ -23,6 +23,7 @@ def receive_data():
     if document:
         insights = {
             "campaign_name": document.get("campaign_name", "N/A"),
+            "cities":document.get("top_city", "N/A"),
             "reach": document.get("reach", "N/A"),
             "impressions": document.get("impressions", "N/A"),
             "clicks": document.get("clicks", "N/A"),

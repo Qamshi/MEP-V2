@@ -2,9 +2,8 @@ from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.adobjects.adsinsights import AdsInsights
 from pymongo import MongoClient
-from datetime import datetime
+from datetime import datetime, timedelta
 import facebook
-import pymongo
 import json
 
 # Set up MongoDB connection
@@ -12,13 +11,9 @@ client = MongoClient('mongodb+srv://qamshi69:5EjI05z8Fbkr79gT@cluster0.eulkllh.m
 db = client.insights
 collection = db.campaigns
 
-# Set up your credentials
-access_token = 'EAAU7sLXCjz0BO4NbsbZCt6lFRFoZC3tnrbAUR9Rn5oKl26vjfDtphvNDOhpsfQKmgJ5KeFRZBjUhHrqnmF64WbWJTqPDHEnH0Yv1xbFchnIPasbn0pWKJN4bZC7eP5lexiIbUABigAtZBzvORO3EERQqoICHZC4qluruxErG9ycF4XmK6ZBr0mAiyrujajARdqDVmZCkSCPdtFU6yIOzVatsVrZCaa9EZCNJmICuoZD'
-ad_account_id = '2023365878046899'
-FacebookAdsApi.init(access_token=access_token)
-
-def main(user_email):
+def main(user_email,access_token,ad_account_id):
     # Query the database for documents with the provided email address
+    FacebookAdsApi.init(access_token=access_token)
     documents = collection.find({"user_email": user_email})
 
     # Define fields to fetch from insights
@@ -30,6 +25,7 @@ def main(user_email):
         AdsInsights.Field.spend,
         AdsInsights.Field.inline_post_engagement,
         AdsInsights.Field.created_time,
+        AdsInsights.Field.date_stop,
     ]
     ids = []
 
@@ -38,7 +34,6 @@ def main(user_email):
         campaign_ids = document.get("campaign_id", "")
         ids.append(campaign_ids)
 
-        # Fetch insights for each campaign ID
     for campaign_id in ids:
         params = {
             'level': 'campaign',
@@ -46,12 +41,22 @@ def main(user_email):
             'fields': fields,
             'filtering': [{'field': 'campaign.id', 'operator': 'EQUAL', 'value': campaign_id}]
         }
-
+        
         try:
             insights = AdAccount(f'act_{ad_account_id}').get_insights(fields=fields, params=params)
+            current_time = datetime.now()
+            formatted_time = current_time.strftime('%Y-%m-%d')
+
             if insights:
                 for insight in insights:
                     insight_data = insight.export_all_data()
+
+                    # Access the "date_stop" field and check the status
+                    date_stop = insight_data.get("date_stop", None)
+                    status = 'Active'
+                    if date_stop and formatted_time == date_stop:
+                        status = 'Expired'
+
                     # Construct the filter
                     filter = {"user_email": user_email, "campaign_id": campaign_id}
 
@@ -65,12 +70,12 @@ def main(user_email):
                             "spend": insight_data.get('spend', 'N/A'),
                             "post_engagement": insight_data.get('inline_post_engagement', 'N/A'),
                             "created_date": insight_data.get('created_time', 'N/A'),
-                            "status": 'Active'
+                            "status": status
                         }
                     }
                     # Update the existing document or insert if not exist
                     collection.update_one(filter, update_fields, upsert=True)
-                    print('Ad has been activated', )
+                    print('Ad has been activated')
                     print("Campaign Name:", insight.get('campaign_name', 'N/A'))
                     print("Reach:", insight.get('reach', 'N/A'))
                     print("Impressions:", insight.get('impressions', 'N/A'))
@@ -78,6 +83,7 @@ def main(user_email):
                     print("Spend:", insight.get('spend', 'N/A'))
                     print("Post Engagement:", insight.get('inline_post_engagement', 'N/A'))
                     print("Created Date:", insight.get('created_time', 'N/A'))
+                    print("Status:", status)
                     print("--------------")
 
             else:
@@ -85,13 +91,12 @@ def main(user_email):
                 graph = facebook.GraphAPI(access_token)
                 campaign = graph.get_object(id=campaign_id, fields='name,created_time')
                 name = campaign.get('name')
-
                 created_time = campaign.get('created_time')
-                print (created_time)
                 original_datetime = datetime.strptime(created_time, "%Y-%m-%dT%H:%M:%S%z")
 
                 # Format to desired output format
                 new_datetime_str = original_datetime.strftime("%Y-%m-%d")
+                # Construct the filter
                 filter = {"user_email": user_email, "campaign_id": campaign_id}
                 # Create update fields
                 update_fields = {
@@ -109,9 +114,9 @@ def main(user_email):
                 # Update the existing document or insert if not exist
                 collection.update_one(filter, update_fields, upsert=True)
                 print("Campaign Name:", name)
-                print("Created Date:", created_time)
+                print("Created Date:", new_datetime_str)
                 print('Ad is not activated yet')
-                print("--------------")
+
         except Exception as e:
             print(f"Error fetching insights for campaign ID {campaign_id}: {str(e)}")
 
@@ -140,6 +145,4 @@ def main(user_email):
         file.write("];\n")
 
 if __name__ == "__main__":
-    
-    
     main()

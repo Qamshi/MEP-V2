@@ -131,6 +131,15 @@ export default function App() {
   } = useTextareaContext();
   const [modalVisible, setModalVisible] = useState(false); // State to control modal visibility
 
+  const decrementAdCount = async () => {
+    try {
+      const response = await axios.put(`http://localhost:3000/subscription/decrement/${userEmail}`);
+      console.log('ads_count decremented:', response.data.message);
+    } catch (error) {
+      console.error('Error decrementing ads_count:', error);
+    }
+  };
+
   const handleSubmit = async () => {
     try {
         const postData = {
@@ -154,6 +163,8 @@ export default function App() {
         console.log("date", selectedDate);
         console.log("Data saved:", userDataResponse.data.message); // Success log
         console.log("data",postData);
+        await decrementAdCount();
+
         resetAll();
         setModalVisible(true); // Show modal after successful submission
         setTimeout(() => {

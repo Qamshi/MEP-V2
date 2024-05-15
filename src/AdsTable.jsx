@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { users } from "./data2";
 import { useTextareaContext } from './TextareaProvider'; // Assuming you have defined this context
-
+import { useParams } from "react-router-dom";
 export default function AdsTable() {
 
   const { userEmail } = useTextareaContext();
@@ -57,10 +57,13 @@ export default function AdsTable() {
 
   const handleProductNameClick = (i) => {
     navigate(`/AdChart/${i}`);
+    
   };
 
   const handleTargetedLocationClick = (item) => {
-    navigate(`/map`);
+    const queryParams = new URLSearchParams();
+    queryParams.append('itemName', JSON.stringify(item)); // Convert item to JSON string
+    navigate(`/map?${queryParams.toString()}`);
   };
 
   return (
@@ -101,7 +104,7 @@ export default function AdsTable() {
                   if (columnKey === "name") {
                     handleProductNameClick(getKeyValue(item, columnKey));
                   } else if (columnKey === "status") {
-                    handleTargetedLocationClick(item);
+                    handleTargetedLocationClick(getKeyValue(item, "name"));
                   }
                 }}
               >

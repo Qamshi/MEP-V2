@@ -6,7 +6,7 @@ import { Activity, ChevronDown, Flash, Lock, Scale, Server, TagUser } from "./Ic
 import Feedback from './Feedback';
 // import { FeedbackFish } from '@feedback-fish/react';
 import { useTextareaContext } from './TextareaProvider'; // Use context
-
+import axios from 'axios';
 
 export default function App() {
   const navigate = useNavigate();
@@ -17,12 +17,41 @@ export default function App() {
   const handlePlanClick = () => {
     navigate("/plan");
   };
+
+  // const handleLogoutClick = () => {
+  //   // Remove user state from local storage
+  //   localStorage.removeItem('userEmail');
+  //   localStorage.removeItem('isSignedIn');
+  //   resetAll();
+  //   navigate("/login");
+  // };
+
   const handleLogoutClick = () => {
     // Remove user state from local storage
     localStorage.removeItem('userEmail');
     localStorage.removeItem('isSignedIn');
     resetAll();
     navigate("/login");
+
+    // Delete the data2.js file
+    fetch('http://localhost:3000/clear-data2-content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ filePath: '../src/data2.js' }), // Adjusted file path
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Content inside data2.js cleared successfully!');
+        } else {
+          console.error('Error clearing content inside data2.js:', response.status);
+        }
+      })
+      .catch((err) => {
+        console.error('Error clearing content inside data2.js:', err);
+      });
+
   };
 
   const handleFeedbackClick = () => {
@@ -41,8 +70,8 @@ export default function App() {
   const handleLandingClick = () => {
     navigate("/landing");
   };
-  
-// export default function App() {
+
+  // export default function App() {
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
     scale: <Scale className="text-warning" fill="currentColor" size={30} />,
@@ -54,7 +83,7 @@ export default function App() {
   };
 
   return (
-    
+
     <Navbar>
       <NavbarBrand>
         <AcmeLogo />
@@ -128,7 +157,7 @@ export default function App() {
         </NavbarItem>
         {/* <FeedbackFish projectId="960b2eb9ed945b"> */}
         <NavbarItem>
-              <Feedback/>
+          <Feedback />
           {/* <Link color="foreground" onClick={handleFeedbackClick} style={{ cursor: 'pointer' }}>
             Feedback
           </Link> */}

@@ -214,7 +214,7 @@
 
 
 import axios from "axios";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import PasswordRecovery from "./PasswordRecovery";
@@ -256,7 +256,6 @@ function SignInForm() {
     return { email, isSignedIn };
   };
 
-
   const handleChange = (evt) => {
     const value = evt.target.value;
     setState({
@@ -264,7 +263,6 @@ function SignInForm() {
       [evt.target.name]: value,
     });
     setValidationError(""); // Clear error on change
-
   };
 
   const handleOnSubmit = async (evt) => {
@@ -307,11 +305,71 @@ function SignInForm() {
     setIsRecovering(true); // Proceed to password recovery
   };
 
-  const handleConfirm = () => {
-    // Logic for confirming OTP and showing password fields
+  const handleConfirm = async () => {
     const { email, otp } = state;
-    alert(`OTP confirmed for email: ${email}`);
-    setIsConfirming(true); // Proceed to password change
+  
+    try {
+      const response = await axios.post("http://localhost:3000/verify-otp", { email, otp });
+  
+      if (response.status === 200) {
+        alert(`OTP confirmed for email: ${email}`);
+        setIsConfirming(true); // Proceed to password change
+      } else {
+        setValidationError("Invalid OTP.");
+      }
+    } catch (error) {
+      setValidationError("An error occurred during OTP verification.");
+    }
+  };
+
+  const handleSendOTP = async () => {
+    const { email } = state;
+  
+    if (!email) {
+      setValidationError("Email is required.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:3000/send-otp", { email });
+  
+      if (response.status === 200) {
+        alert(`OTP sent to email: ${email}`);
+      } else {
+        setValidationError("Failed to send OTP.");
+      }
+    } catch (error) {
+      setValidationError("An error occurred while sending OTP.");
+    }
+  };
+
+  const handlePasswordReset = async () => {
+    const { email, newPassword, confirmPassword } = state;
+  
+    if (!newPassword || !confirmPassword) {
+      setValidationError("All fields are required.");
+      return;
+    }
+  
+    if (newPassword !== confirmPassword) {
+      setValidationError("Passwords do not match.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:3000/reset-password", { email, newPassword });
+  
+      if (response.status === 200) {
+        alert("Password successfully reset. Please sign in with your new password.");
+        setIsRecovering(false);
+        setIsConfirming(false);
+        setState({ email: "", password: "", newPassword: "", confirmPassword: "", otp: "" });
+      } else {
+        setValidationError("Failed to reset password.");
+      }
+    } catch (error) {
+      setValidationError("An error occurred during password reset.");
+    }
   };
 
   return (
@@ -329,6 +387,8 @@ function SignInForm() {
             state={state}
             handleChange={handleChange}
             handleConfirm={handleConfirm}
+            handleSendOTP={handleSendOTP}
+            handlePasswordReset={handlePasswordReset}
             isConfirming={isConfirming}
             handleOnSubmit={handleOnSubmit}
           />
@@ -338,21 +398,6 @@ function SignInForm() {
               <>
                 <div className="flex justify-center space-x-4">
                 <AcmeLogo/>
-                  {/* <button
-                    type="button"
-                    className="social"
-                    onClick={() => handleSocialLogin("facebook")}
-                  >
-                    
-                    <i className="fab fa-facebook-f text-blue-500" />
-                  </button> */}
-                  {/* <button
-                    type="button"
-                    className="social"
-                    onClick={() => handleSocialLogin("google")}
-                  >
-                    <i className="fab fa-google-plus-g text-red-500" />
-                  </button> */}
                 </div>
                 <span className="text-gray-600">Market Ease Plus</span>
               </>
@@ -362,7 +407,7 @@ function SignInForm() {
               placeholder="Email"
               name="email"
               value={state.email}
-              onChange={(e) => setState({ ...state, email: e.target.value })}
+              onChange={handleChange}
               className="w-full px-4 py-2 rounded-lg bg-gray-200 focus:outline-none focus:bg-white"
             />
             <div className="flex items-center bg-gray-200 rounded-lg">
@@ -371,7 +416,7 @@ function SignInForm() {
                 name="password"
                 placeholder="Password"
                 value={state.password}
-                onChange={(e) => setState({ ...state, password: e.target.value })}
+                onChange={handleChange}
                 className="w-full px-4 py-2 bg-transparent focus:outline-none"
               />
               <button
@@ -390,7 +435,7 @@ function SignInForm() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                      d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                     />
                   </svg>
                 ) : (
@@ -440,3 +485,4 @@ function SignInForm() {
 }
 
 export default SignInForm;
+
