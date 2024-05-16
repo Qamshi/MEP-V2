@@ -9,7 +9,7 @@ import { useTextareaContext } from './TextareaProvider'; // Import the context
 const AdPreview2 = () => {
   const { imageURL, productName, productDescription } = useTextareaContext();
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const maxLines = 6;
+  const maxLines = 4;
   const description = productDescription.split('\n');
   const truncatedDescription = description.slice(0, maxLines).join('\n');
   const isDescriptionTruncated = description.length > maxLines;

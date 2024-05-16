@@ -18,14 +18,6 @@ export default function App() {
     navigate("/plan");
   };
 
-  // const handleLogoutClick = () => {
-  //   // Remove user state from local storage
-  //   localStorage.removeItem('userEmail');
-  //   localStorage.removeItem('isSignedIn');
-  //   resetAll();
-  //   navigate("/login");
-  // };
-
   const handleLogoutClick = () => {
     // Remove user state from local storage
     localStorage.removeItem('userEmail');
@@ -33,24 +25,6 @@ export default function App() {
     resetAll();
     navigate("/login");
 
-    // Delete the data2.js file
-    fetch('http://localhost:3000/clear-data2-content', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ filePath: '../src/data2.js' }), // Adjusted file path
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log('Content inside data2.js cleared successfully!');
-        } else {
-          console.error('Error clearing content inside data2.js:', response.status);
-        }
-      })
-      .catch((err) => {
-        console.error('Error clearing content inside data2.js:', err);
-      });
 
   };
 

@@ -50,12 +50,26 @@ def main(user_email,access_token,ad_account_id):
             if insights:
                 for insight in insights:
                     insight_data = insight.export_all_data()
-
+                    print(insight)
                     # Access the "date_stop" field and check the status
-                    date_stop = insight_data.get("date_stop", None)
-                    status = 'Active'
-                    if date_stop and formatted_time == date_stop:
-                        status = 'Expired'
+                    date_stop = insight_data.get("created_time", None)
+                    if date_stop:
+            # Convert date_stop to a datetime object
+                       date_stop_dt = datetime.strptime(date_stop, '%Y-%m-%d')
+            
+            # Add one day to date_stop
+                       new_date_stop_dt = date_stop_dt + timedelta(days=1)
+            
+            # Format new_date_stop back to string if needed
+                       new_date_stop = new_date_stop_dt.strftime('%Y-%m-%d')
+                    else:
+                        new_date_stop = None
+        
+                    
+                    print(new_date_stop,formatted_time)
+                    status = 'Expired'
+                    if new_date_stop and formatted_time <= new_date_stop:
+                        status = 'Active'
 
                     # Construct the filter
                     filter = {"user_email": user_email, "campaign_id": campaign_id}
@@ -136,13 +150,8 @@ def main(user_email,access_token,ad_account_id):
             new_data.append(data_entry)
         else:
             print(f"Warning: 'campaign_name' field not found in document {index + 1}. Skipping...")
-
+    user = new_data
     # Writing data into data2.js
-    with open('data2.js', 'w') as file:
-        file.write("export const users = [\n")
-        for data in new_data:
-            file.write(f"  {json.dumps(data)},\n")
-        file.write("];\n")
-
+    return user
 if __name__ == "__main__":
     main()
